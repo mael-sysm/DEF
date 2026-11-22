@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Inyector Maestro V37 (JSON)
 // @namespace    http://tampermonkey.net/
-// @version      37.1
+// @version      37.2
 // @description  Campos desde capitulo; calculadoras y diagramas desde JSON (1 o multiples variantes).
 // @author       mercz d
 // @match        https://cursosabiertos.usfx.bo/materias/*/capitulos/*
@@ -21,7 +21,7 @@
         GITHUB_USER: 'mael-sysm',
         GITHUB_REPO: 'DEF',
         GITHUB_BRANCH: 'main',
-        GITHUB_CARPETA: '', // ej. 'json' o '' si está en la raíz del repo DEF
+        GITHUB_CARPETA: '',
         MAX_INTENTOS: 15,
         EXTRA_SEGUNDOS_DEFENSA: 60,
         ESPERA_HABILITAR_MS: 300,
@@ -34,6 +34,8 @@
         SELECTORES: '.campo_arrastrar, .campo_dato',
         CORREGIR: '#btCorregir, .btCorregir'
     };
+
+    const ui = {};
 
     const estado = {
         cancelado: false,
@@ -85,7 +87,7 @@
     }
 
     function showToast(message, type = 'info') {
-        if (estado.cancelado) return;
+        if (estado.cancelado || !document.body) return;
         const colors = { info: '#3b82f6', success: '#16a34a', error: '#ef4444', warning: '#f59e0b' };
         const toast = document.createElement('div');
         toast.className = 'tm-inyectado';
@@ -166,7 +168,7 @@
     }
 
     function actualizarContadorPanel() {
-        if (!ui.contadorDefensa || !estado.esperaDefensaActiva) return;
+        if (!ui || !ui.contadorDefensa || !estado.esperaDefensaActiva) return;
         ui.contadorDefensa.style.display = 'block';
         ui.contadorDefensa.textContent = estado.esperaDefensaSeg > 0
             ? `Espera envío: ${formatearHMS(estado.esperaDefensaSeg)}`
@@ -454,7 +456,7 @@
     }
 
     // =========================================================================
-    // 7B. VARIANTE FORZADA (elige qué enunciado se genera, solo para un ejercicio)
+    // 7B. VARIANTE FORZADA
     // =========================================================================
     const forzado = { original: null, variantes: new Map() };
 
@@ -464,8 +466,6 @@
         }
         const total = ctx.enunciados ? ctx.enunciados.length : 1;
         const segura = Math.min(variante, total - 1);
-        if (segura !== variante) console.warn(`[Inyector] Variante ${variante} fuera de rango (${total}); se usa ${segura}.`);
-
         const randomOriginal = Math.random;
         Math.random = () => (segura + 0.1) / total;
         try { return original.apply(ctx, args); }
@@ -815,7 +815,6 @@
     // =========================================================================
     // 12. INTERFAZ GRÁFICA
     // =========================================================================
-    const ui = {};
     const ICONO_DESCARGA = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>`;
 
     function crearElemento(tag, estilos = {}, props = {}) {
@@ -880,9 +879,10 @@
 
     function crearPestana() {
         return crearElemento('button', {
-            width: '16px', height: '36px', background: 'transparent', color: 'transparent',
-            border: 'none', outline: 'none', borderRadius: '0px', cursor: 'pointer', opacity: '0', padding: '0'
-        });
+            width: '16px', height: '36px', background: 'rgba(37, 99, 235, 0.35)', color: '#fff',
+            border: '1px solid rgba(255,255,255,0.2)', borderRight: 'none', outline: 'none',
+            borderRadius: '6px 0 0 6px', cursor: 'pointer', opacity: '0.75', padding: '0', fontSize: '10px'
+        }, { title: 'Abrir/cerrar panel', textContent: '‹' });
     }
 
     function crearPanelMenu() {
@@ -901,13 +901,16 @@
     }
 
     function construirUI() {
+        if (!document.body) return;
+        document.querySelectorAll('#inyector-maestro-ui').forEach(el => el.remove());
+
         const meta = obtenerMetadatosCapitulo();
         const etiqueta = meta ? `${meta.materia.toUpperCase()} · Cap ${meta.num} (DEF)` : 'V37 DEF';
 
         const raiz = crearElemento('div', {
             position: 'fixed', bottom: '28px', right: '0', zIndex: '9999',
             display: 'flex', alignItems: 'center', fontFamily: 'system-ui, sans-serif'
-        }, { className: 'tm-inyectado' });
+        }, { id: 'inyector-maestro-ui', className: 'tm-inyectado' });
 
         ui.panel = crearPanelMenu();
         ui.contadorDefensa = crearContadorDefensa();
@@ -929,17 +932,19 @@
 
     function alternarMenu() {
         estado.menuAbierto = !estado.menuAbierto;
-        ui.panel.style.display = estado.menuAbierto ? 'flex' : 'none';
+        if (ui.panel) ui.panel.style.display = estado.menuAbierto ? 'flex' : 'none';
+        if (ui.btnPestana) ui.btnPestana.textContent = estado.menuAbierto ? '›' : '‹';
         if (estado.menuAbierto && estado.esperaDefensaActiva) {
             actualizarContadorPanel();
         }
     }
 
     function mostrarProgreso(texto) {
-        ui.btnGitHub.innerHTML = `<span style="font-size:10px; font-weight:bold;">${texto}</span>`;
+        if (ui.btnGitHub) ui.btnGitHub.innerHTML = `<span style="font-size:10px; font-weight:bold;">${texto}</span>`;
     }
 
     function bloquearUI() {
+        if (!ui.btnGitHub) return;
         ui.btnGitHub.disabled = true;
         ui.btnLocal.disabled = true;
         ui.selectModo.disabled = true;
@@ -949,7 +954,7 @@
 
     function resetearUI() {
         desactivarEscudoFoco();
-        if (estado.cancelado) return;
+        if (estado.cancelado || !ui.btnGitHub) return;
         ui.btnGitHub.disabled = false;
         ui.btnLocal.disabled = false;
         ui.selectModo.disabled = false;
@@ -1117,10 +1122,14 @@
     }
 
     function iniciar() {
-        envolverSavePage();
-        instalarForzadoDeVariante();
-        construirUI();
-        conectarEventos();
+        try {
+            envolverSavePage();
+            instalarForzadoDeVariante();
+            construirUI();
+            conectarEventos();
+        } catch (err) {
+            console.error('[Inyector V37] Error al iniciar:', err);
+        }
     }
 
     iniciar();
