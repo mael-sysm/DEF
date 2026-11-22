@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Inyector Maestro V37 (JSON)
+// @name         Inyector Maestro V37.3 (DEF JSON)
 // @namespace    http://tampermonkey.net/
-// @version      37.2
-// @description  Campos desde capitulo; calculadoras y diagramas desde JSON (1 o multiples variantes).
+// @version      37.3
+// @description  Campos desde capitulo; calculadoras y diagramas desde JSON (1 o multiples variantes) en repo DEF.
 // @author       mercz d
 // @match        https://cursosabiertos.usfx.bo/materias/*/capitulos/*
 // @grant        none
@@ -11,6 +11,9 @@
 
 (function () {
     'use strict';
+
+    if (window.__inyectorV37Activo) return;
+    window.__inyectorV37Activo = true;
 
     if (!document.querySelector('.ejercicio')) return;
 
@@ -21,7 +24,7 @@
         GITHUB_USER: 'mael-sysm',
         GITHUB_REPO: 'DEF',
         GITHUB_BRANCH: 'main',
-        GITHUB_CARPETA: '',
+        GITHUB_CARPETA: '', // ej. 'json' si los JSON estan en una carpeta dentro de DEF
         MAX_INTENTOS: 15,
         EXTRA_SEGUNDOS_DEFENSA: 60,
         ESPERA_HABILITAR_MS: 300,
@@ -168,7 +171,7 @@
     }
 
     function actualizarContadorPanel() {
-        if (!ui || !ui.contadorDefensa || !estado.esperaDefensaActiva) return;
+        if (!ui.contadorDefensa || !estado.esperaDefensaActiva) return;
         ui.contadorDefensa.style.display = 'block';
         ui.contadorDefensa.textContent = estado.esperaDefensaSeg > 0
             ? `Espera envío: ${formatearHMS(estado.esperaDefensaSeg)}`
@@ -280,7 +283,7 @@
     }
 
     // =========================================================================
-    // 6. DETECCIÓN DE CAPÍTULO Y CARGA DE JSON (GITHUB / LOCAL)
+    // 6. DETECCIÓN DE CAPÍTULO Y CARGA DE JSON DESDE GITHUB / LOCAL
     // =========================================================================
     function obtenerMetadatosCapitulo() {
         const re = /materias\/([a-zA-Z0-9_-]+)\/capitulos\/capitulo(\d+)/i;
@@ -303,18 +306,19 @@
         return m ? String(parseInt(m[1], 10)) : null;
     }
 
-    function construirRutasJSONGitHub(meta) {
+    function construirCandidatosJSONGitHub(meta) {
         const { GITHUB_USER, GITHUB_REPO, GITHUB_BRANCH, GITHUB_CARPETA } = CONFIG;
         const carpeta = (GITHUB_CARPETA || '').replace(/^\/+|\/+$/g, '');
-        const prefijo = carpeta
-            ? `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${carpeta}`
-            : `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}`;
-
+        const raizRaw = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}`;
+        const base = carpeta ? `${raizRaw}/${carpeta}` : raizRaw;
         const num = String(parseInt(meta.num, 10));
-        const nombreBase = `${meta.materia}_${num}.json`;
+        const nombre = `${meta.materia}_${num}.json`;
+
         return [
-            `${prefijo}/${nombreBase}`,
-            `${prefijo}/${meta.materia}/${nombreBase}`
+            `${base}/${nombre}`,
+            `${base}/${meta.materia}/${nombre}`,
+            `${raizRaw}/${nombre}`,
+            `${raizRaw}/${meta.materia}/${nombre}`
         ];
     }
 
@@ -365,11 +369,11 @@
 
     async function cargarJSONDesdeGitHub(meta) {
         if (estado.cacheJSONGitHub) return estado.cacheJSONGitHub;
-        const urls = construirRutasJSONGitHub(meta);
+        const urls = [...new Set(construirCandidatosJSONGitHub(meta))];
 
         for (const url of urls) {
             try {
-                const resp = await fetch(url, { cache: 'no-store' });
+                const resp = await fetch(`${url}?t=${Date.now()}`, { cache: 'no-store' });
                 if (resp.ok) {
                     const data = await resp.json();
                     estado.cacheJSONGitHub = normalizarJSON(data, meta);
@@ -378,11 +382,11 @@
             } catch (e) {}
         }
 
-        throw new Error(`No se encontró ${meta.materia}_${meta.num}.json en GitHub (${CONFIG.GITHUB_REPO}).`);
+        throw new Error(`No se encontró ${meta.materia}_${meta.num}.json en ${CONFIG.GITHUB_USER}/${CONFIG.GITHUB_REPO}.`);
     }
 
     // =========================================================================
-    // 7. DOM DE EJERCICIOS Y CONSULTA DE VARIANTES EN EL JSON
+    // 7. DOM DE EJERCICIOS Y RESOLUCIÓN DE VARIANTES (1 O MÚLTIPLES)
     // =========================================================================
     function obtenerNotaEjercicio(ej) {
         const inp = ej.querySelector('input.notas, input.itmostrar.notas');
@@ -440,7 +444,22 @@
         if (varActual !== null) {
             const clave = String(varActual);
             if (entrada.enunciados[clave]) {
-                return { varianteObjetivo: varActual, calculadoras: entrada.enunciados[clave], noExisteEnJSON: false, varianteFaltante: false };
+                return {
+                    varianteObjetivo: varActual,
+                    calculadoras: entrada.enunciados[clave],
+                    noExisteEnJSON: false,
+                    varianteFaltante: false
+                };
+            }
+            // Si el JSON solo tiene 1 variante guardada, usar esa como respaldo
+            if (entrada.variantes.length === 1) {
+                const unica = entrada.variantes[0];
+                return {
+                    varianteObjetivo: /^\d+$/.test(unica) ? parseInt(unica, 10) : null,
+                    calculadoras: entrada.enunciados[unica],
+                    noExisteEnJSON: false,
+                    varianteFaltante: false
+                };
             }
             return { varianteObjetivo: null, calculadoras: null, noExisteEnJSON: false, varianteFaltante: true };
         }
@@ -813,7 +832,7 @@
     }
 
     // =========================================================================
-    // 12. INTERFAZ GRÁFICA
+    // 12. INTERFAZ GRÁFICA (MISMA ESTRUCTURA V36.1)
     // =========================================================================
     const ICONO_DESCARGA = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>`;
 
@@ -859,14 +878,14 @@
             width: '32px', height: '32px', background: '#2563eb', color: '#ffffff',
             border: 'none', borderRadius: '50%', cursor: 'pointer',
             boxShadow: '0 2px 8px rgba(37, 99, 235, 0.4)', transition: 'all 0.2s ease', padding: '0'
-        }, { innerHTML: ICONO_DESCARGA, title: 'Cargar JSON desde GitHub (DEF) e inyectar' });
+        }, { innerHTML: ICONO_DESCARGA, title: 'Cargar JSON desde GitHub (DEF)' });
     }
 
     function crearBotonLocal() {
         return crearElemento('button', {
             padding: '6px 12px', background: '#334155', color: 'white', border: 'none',
             borderRadius: '999px', cursor: 'pointer', fontSize: '11px', fontWeight: '600'
-        }, { textContent: 'JSON Local', title: 'Elegir archivo .json local' });
+        }, { textContent: 'Local', title: 'Cargar JSON local' });
     }
 
     function crearBotonCerrar() {
@@ -879,10 +898,9 @@
 
     function crearPestana() {
         return crearElemento('button', {
-            width: '16px', height: '36px', background: 'rgba(37, 99, 235, 0.35)', color: '#fff',
-            border: '1px solid rgba(255,255,255,0.2)', borderRight: 'none', outline: 'none',
-            borderRadius: '6px 0 0 6px', cursor: 'pointer', opacity: '0.75', padding: '0', fontSize: '10px'
-        }, { title: 'Abrir/cerrar panel', textContent: '‹' });
+            width: '16px', height: '36px', background: 'rgba(37, 99, 235, 0.25)', color: 'transparent',
+            border: 'none', outline: 'none', borderRadius: '0px', cursor: 'pointer', opacity: '0.35', padding: '0'
+        }, { title: 'Panel inyector' });
     }
 
     function crearPanelMenu() {
@@ -901,16 +919,14 @@
     }
 
     function construirUI() {
-        if (!document.body) return;
-        document.querySelectorAll('#inyector-maestro-ui').forEach(el => el.remove());
-
+        if (!document.body || document.getElementById('inyector-v37-root')) return;
         const meta = obtenerMetadatosCapitulo();
-        const etiqueta = meta ? `${meta.materia.toUpperCase()} · Cap ${meta.num} (DEF)` : 'V37 DEF';
+        const etiqueta = meta ? `${meta.materia.toUpperCase()} · Cap ${meta.num}` : 'V37';
 
         const raiz = crearElemento('div', {
             position: 'fixed', bottom: '28px', right: '0', zIndex: '9999',
             display: 'flex', alignItems: 'center', fontFamily: 'system-ui, sans-serif'
-        }, { id: 'inyector-maestro-ui', className: 'tm-inyectado' });
+        }, { id: 'inyector-v37-root', className: 'tm-inyectado' });
 
         ui.panel = crearPanelMenu();
         ui.contadorDefensa = crearContadorDefensa();
@@ -933,7 +949,6 @@
     function alternarMenu() {
         estado.menuAbierto = !estado.menuAbierto;
         if (ui.panel) ui.panel.style.display = estado.menuAbierto ? 'flex' : 'none';
-        if (ui.btnPestana) ui.btnPestana.textContent = estado.menuAbierto ? '›' : '‹';
         if (estado.menuAbierto && estado.esperaDefensaActiva) {
             actualizarContadorPanel();
         }
@@ -963,7 +978,7 @@
     }
 
     // =========================================================================
-    // 13. VALIDACIÓN Y ORQUESTACIÓN (MODO EN CURSO Y MODOS MASIVOS)
+    // 13. VALIDACIÓN Y ORQUESTACIÓN
     // =========================================================================
     const necesitaCalculadora = ej => !!ej.querySelector('.calculadora');
 
@@ -1122,14 +1137,10 @@
     }
 
     function iniciar() {
-        try {
-            envolverSavePage();
-            instalarForzadoDeVariante();
-            construirUI();
-            conectarEventos();
-        } catch (err) {
-            console.error('[Inyector V37] Error al iniciar:', err);
-        }
+        envolverSavePage();
+        instalarForzadoDeVariante();
+        construirUI();
+        conectarEventos();
     }
 
     iniciar();
