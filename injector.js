@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Inyector Maestro V37.3 (DEF JSON)
+// @name         Inyector Maestro V37
 // @namespace    http://tampermonkey.net/
-// @version      37.3
-// @description  Campos desde capitulo; calculadoras y diagramas desde JSON (1 o multiples variantes) en repo DEF.
+// @version      37.0
+// @description  Campos y opciones desde el objeto capitulo; calculadoras y diagramas desde el JSON (GitHub/Local).
 // @author       mercz d
 // @match        https://cursosabiertos.usfx.bo/materias/*/capitulos/*
 // @grant        none
@@ -12,9 +12,6 @@
 (function () {
     'use strict';
 
-    if (window.__inyectorV37Activo) return;
-    window.__inyectorV37Activo = true;
-
     if (!document.querySelector('.ejercicio')) return;
 
     // =========================================================================
@@ -22,9 +19,8 @@
     // =========================================================================
     const CONFIG = {
         GITHUB_USER: 'mael-sysm',
-        GITHUB_REPO: 'DEF',
+        GITHUB_REPO: 'cap',
         GITHUB_BRANCH: 'main',
-        GITHUB_CARPETA: '', // ej. 'json' si los JSON estan en una carpeta dentro de DEF
         MAX_INTENTOS: 15,
         EXTRA_SEGUNDOS_DEFENSA: 60,
         ESPERA_HABILITAR_MS: 300,
@@ -37,8 +33,6 @@
         SELECTORES: '.campo_arrastrar, .campo_dato',
         CORREGIR: '#btCorregir, .btCorregir'
     };
-
-    const ui = {};
 
     const estado = {
         cancelado: false,
@@ -56,8 +50,9 @@
     // 1. UTILIDADES GENERALES
     // =========================================================================
     const sleep = ms => new Promise(r => setTimeout(r, ms));
+    const norm = t => (t || '').replace(/\u200B/g, '').replace(/\s+/g, ' ').trim();
     const esVisible = el => !!(el && (el.offsetParent || el.getClientRects().length));
-    const sinTildes = s => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const sinTildes = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
     function formatearHMS(seg) {
         const s = Math.max(0, Math.floor(Number(seg) || 0));
@@ -90,7 +85,7 @@
     }
 
     function showToast(message, type = 'info') {
-        if (estado.cancelado || !document.body) return;
+        if (estado.cancelado) return;
         const colors = { info: '#3b82f6', success: '#16a34a', error: '#ef4444', warning: '#f59e0b' };
         const toast = document.createElement('div');
         toast.className = 'tm-inyectado';
@@ -283,110 +278,91 @@
     }
 
     // =========================================================================
-    // 6. DETECCIÓN DE CAPÍTULO Y CARGA DE JSON DESDE GITHUB / LOCAL
+    // 6. DETECCIÓN DE CAPÍTULO Y DESCARGA DESDE GITHUB
     // =========================================================================
     function obtenerMetadatosCapitulo() {
-        const re = /materias\/([a-zA-Z0-9_-]+)\/capitulos\/capitulo(\d+)/i;
+        const re = /materias\/([a-zA-Z0-9_-]+)\/capitulos\/(capitulo\d+)/i;
         const fuentes = [...document.querySelectorAll('script[src]')].map(s => s.src).concat(location.pathname);
         for (const f of fuentes) {
             const m = f.match(re);
-            if (m) {
-                return {
-                    materia: m[1].toLowerCase(),
-                    capitulo: `capitulo${parseInt(m[2], 10)}`,
-                    num: String(parseInt(m[2], 10))
-                };
-            }
+            if (m) return { materia: m[1].toLowerCase(), capitulo: m[2].toLowerCase(), num: m[2].replace(/\D/g, '') };
         }
         return null;
     }
 
     function extraerNumCapTitulo(titulo) {
         const m = sinTildes(titulo || '').match(/capitulo\s*(\d+)/i);
-        return m ? String(parseInt(m[1], 10)) : null;
+        return m ? m[1] : null;
     }
 
-    function construirCandidatosJSONGitHub(meta) {
-        const { GITHUB_USER, GITHUB_REPO, GITHUB_BRANCH, GITHUB_CARPETA } = CONFIG;
-        const carpeta = (GITHUB_CARPETA || '').replace(/^\/+|\/+$/g, '');
-        const raizRaw = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}`;
-        const base = carpeta ? `${raizRaw}/${carpeta}` : raizRaw;
-        const num = String(parseInt(meta.num, 10));
-        const nombre = `${meta.materia}_${num}.json`;
+    function urlBaseRaw(meta) {
+        const { GITHUB_USER, GITHUB_REPO, GITHUB_BRANCH } = CONFIG;
+        return `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${meta.materia}`;
+    }
 
-        return [
-            `${base}/${nombre}`,
-            `${base}/${meta.materia}/${nombre}`,
-            `${raizRaw}/${nombre}`,
-            `${raizRaw}/${meta.materia}/${nombre}`
+    async function intentarDescargaDirecta(meta) {
+        const base = urlBaseRaw(meta);
+        const num = String(meta.num);
+        const candidatos = [
+            `${base}/${meta.materia}_${num}.json`,
+            `${base}/${num}.json`,
+            `${base}/${meta.capitulo}.json`,
+            `${base}/${meta.materia}_${num.padStart(2, '0')}.json`,
+            `${base}/${num.padStart(2, '0')}.json`
         ];
-    }
-
-    function normalizarJSON(raw, metaFallback = null) {
-        if (!raw || typeof raw !== 'object' || !raw.ejercicios || typeof raw.ejercicios !== 'object') {
-            throw new Error('JSON sin estructura "ejercicios".');
-        }
-
-        const materia = String(raw.materia || (metaFallback && metaFallback.materia) || '').toLowerCase() || null;
-        const capituloNum = raw.capitulo !== undefined && raw.capitulo !== null && raw.capitulo !== ''
-            ? String(parseInt(raw.capitulo, 10))
-            : (metaFallback && metaFallback.num ? String(parseInt(metaFallback.num, 10)) : null);
-
-        const ejercicios = {};
-        for (const [id, info] of Object.entries(raw.ejercicios)) {
-            if (!info || typeof info !== 'object') continue;
-            const enunciados = {};
-
-            if (info.enunciados && typeof info.enunciados === 'object') {
-                for (const [kVar, calcs] of Object.entries(info.enunciados)) {
-                    if (Array.isArray(calcs) && calcs.length > 0) {
-                        enunciados[String(kVar)] = calcs;
-                    }
-                }
-            } else if (Array.isArray(info.calculadoras) && info.calculadoras.length > 0) {
-                const kVar = (info.enunciado !== undefined && info.enunciado !== null)
-                    ? String(parseInt(info.enunciado, 10))
-                    : 'default';
-                enunciados[kVar] = info.calculadoras;
-            }
-
-            if (Object.keys(enunciados).length > 0) {
-                const claves = Object.keys(enunciados).sort((a, b) => {
-                    if (a === 'default') return 1;
-                    if (b === 'default') return -1;
-                    return Number(a) - Number(b);
-                });
-                ejercicios[id] = {
-                    id,
-                    variantes: claves,
-                    enunciados
-                };
-            }
-        }
-
-        return { materia, capituloNum, ejercicios };
-    }
-
-    async function cargarJSONDesdeGitHub(meta) {
-        if (estado.cacheJSONGitHub) return estado.cacheJSONGitHub;
-        const urls = [...new Set(construirCandidatosJSONGitHub(meta))];
-
-        for (const url of urls) {
+        for (const url of candidatos) {
             try {
-                const resp = await fetch(`${url}?t=${Date.now()}`, { cache: 'no-store' });
-                if (resp.ok) {
-                    const data = await resp.json();
-                    estado.cacheJSONGitHub = normalizarJSON(data, meta);
-                    return estado.cacheJSONGitHub;
-                }
+                const r = await fetch(url, { cache: 'no-store' });
+                if (r.ok) return await r.text();
             } catch (e) {}
         }
+        return null;
+    }
 
-        throw new Error(`No se encontró ${meta.materia}_${meta.num}.json en ${CONFIG.GITHUB_USER}/${CONFIG.GITHUB_REPO}.`);
+    async function listarArchivosMateria(meta) {
+        const { GITHUB_USER, GITHUB_REPO, GITHUB_BRANCH } = CONFIG;
+        const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${meta.materia}?ref=${GITHUB_BRANCH}`;
+        const resp = await fetch(url, { cache: 'no-store' });
+        if (!resp.ok) throw new Error(`No se encontró la carpeta "${meta.materia}" en GitHub (${resp.status})`);
+        return resp.json();
+    }
+
+    function elegirArchivoCapitulo(archivos, num) {
+        const reglas = [
+            f => new RegExp(`^[a-z0-9-]+_0*${num}\\.json$`, 'i').test(f.name.trim()),
+            f => new RegExp(`^0*${num}\\.json$`, 'i').test(f.name.trim()),
+            f => new RegExp(`cap[ií]tulo[\\s_-]*0*${num}(?!\\d).*\\.json$`, 'i').test(sinTildes(f.name).toLowerCase()),
+            f => new RegExp(`(?:^|[^\\d])0*${num}\\.json$`, 'i').test(f.name.trim())
+        ];
+        for (const regla of reglas) {
+            const hallado = archivos.find(f => f.type === 'file' && regla(f));
+            if (hallado) return hallado;
+        }
+        return null;
+    }
+
+    async function descargarArchivo(meta, archivo) {
+        const url = archivo.download_url || `${urlBaseRaw(meta)}/${encodeURIComponent(archivo.name)}`;
+        const resp = await fetch(url, { cache: 'no-store' });
+        if (!resp.ok) throw new Error(`Error al descargar "${archivo.name}" (${resp.status})`);
+        return resp.text();
+    }
+
+    async function descargarJSONDesdeGitHub(meta) {
+        if (estado.cacheJSONGitHub) return estado.cacheJSONGitHub;
+
+        const directo = await intentarDescargaDirecta(meta);
+        if (directo) return (estado.cacheJSONGitHub = directo);
+
+        const archivos = await listarArchivosMateria(meta);
+        const elegido = elegirArchivoCapitulo(archivos, String(meta.num));
+        if (!elegido) throw new Error(`No hay JSON para el capítulo ${meta.num} en "${meta.materia}".`);
+
+        return (estado.cacheJSONGitHub = await descargarArchivo(meta, elegido));
     }
 
     // =========================================================================
-    // 7. DOM DE EJERCICIOS Y RESOLUCIÓN DE VARIANTES (1 O MÚLTIPLES)
+    // 7. DOM DE EJERCICIOS
     // =========================================================================
     function obtenerNotaEjercicio(ej) {
         const inp = ej.querySelector('input.notas, input.itmostrar.notas');
@@ -419,63 +395,45 @@
         return ejercicios.find(ej => sinInicio(obtenerEstadoBotones(ej)) && ej.hasAttribute('enunciado')) || null;
     }
 
+    /** Datos del ejercicio en el JSON: se busca solo por ID. */
+    function buscarEjercicioEmisor(datos, ej) {
+        const e = datos && datos.ejercicios && datos.ejercicios[ej.id];
+        return (e && e.enunciados && typeof e.enunciados === 'object') ? e : null;
+    }
+
+    /** Variante a forzar: la primera numérica guardada; null si solo hay "default". */
+    function elegirVarianteObjetivo(entry) {
+        const nums = Object.keys(entry.enunciados)
+            .filter(k => k !== 'default' && !isNaN(parseInt(k, 10)))
+            .map(Number)
+            .sort((a, b) => a - b);
+        return nums.length ? nums[0] : null;
+    }
+
+    /** Calculadoras guardadas para una variante (o las "default"); null si no hay. */
+    function calculadorasPara(entry, variante) {
+        if (!entry) return null;
+        const e = entry.enunciados;
+        const lista = (variante !== null && variante !== undefined && e[String(variante)]) || e.default;
+        return Array.isArray(lista) && lista.length ? lista : null;
+    }
+
+    /** Número de enunciado (variante) de un ejercicio, o null si no tiene. */
     function varianteDe(ej) {
         const n = parseInt(ej.getAttribute('enunciado'), 10);
         return isNaN(n) ? null : n;
     }
 
+    const coincideVariante = (ej, objetivo) => varianteDe(ej) === objetivo;
+
+    /** Índice interno del ejercicio (ejercicio3 → 2), igual a Ejercicio.neg. */
     function indiceEjercicio(ej) {
         const m = /^ejercicio(\d+)$/.exec(ej.id || '');
         return m ? Number(m[1]) - 1 : null;
     }
 
-    function obtenerEntradaJSON(datosJSON, ej) {
-        if (!datosJSON || !datosJSON.ejercicios || !ej || !ej.id) return null;
-        return datosJSON.ejercicios[ej.id] || null;
-    }
-
-    function resolverCalculadorasJSON(datosJSON, ej) {
-        const entrada = obtenerEntradaJSON(datosJSON, ej);
-        if (!entrada) {
-            return { varianteObjetivo: null, calculadoras: null, noExisteEnJSON: true, varianteFaltante: false };
-        }
-
-        const varActual = varianteDe(ej);
-        if (varActual !== null) {
-            const clave = String(varActual);
-            if (entrada.enunciados[clave]) {
-                return {
-                    varianteObjetivo: varActual,
-                    calculadoras: entrada.enunciados[clave],
-                    noExisteEnJSON: false,
-                    varianteFaltante: false
-                };
-            }
-            // Si el JSON solo tiene 1 variante guardada, usar esa como respaldo
-            if (entrada.variantes.length === 1) {
-                const unica = entrada.variantes[0];
-                return {
-                    varianteObjetivo: /^\d+$/.test(unica) ? parseInt(unica, 10) : null,
-                    calculadoras: entrada.enunciados[unica],
-                    noExisteEnJSON: false,
-                    varianteFaltante: false
-                };
-            }
-            return { varianteObjetivo: null, calculadoras: null, noExisteEnJSON: false, varianteFaltante: true };
-        }
-
-        const primeraClave = entrada.variantes[0];
-        const numObjetivo = /^\d+$/.test(primeraClave) ? parseInt(primeraClave, 10) : null;
-        return {
-            varianteObjetivo: numObjetivo,
-            calculadoras: entrada.enunciados[primeraClave] || null,
-            noExisteEnJSON: false,
-            varianteFaltante: false
-        };
-    }
-
     // =========================================================================
-    // 7B. VARIANTE FORZADA
+    // 7B. VARIANTE FORZADA (elige qué enunciado se genera, solo para un ejercicio)
     // =========================================================================
     const forzado = { original: null, variantes: new Map() };
 
@@ -485,6 +443,8 @@
         }
         const total = ctx.enunciados ? ctx.enunciados.length : 1;
         const segura = Math.min(variante, total - 1);
+        if (segura !== variante) console.warn(`[Inyector] Variante ${variante} fuera de rango (${total}); se usa ${segura}.`);
+
         const randomOriginal = Math.random;
         Math.random = () => (segura + 0.1) / total;
         try { return original.apply(ctx, args); }
@@ -512,8 +472,8 @@
         forzado.variantes.clear();
     }
 
+    /** Ejecuta `accion` con la variante forzada SOLO para este ejercicio; devuelve lo que devuelva `accion`. */
     async function conVarianteForzada(ej, variante, accion) {
-        instalarForzadoDeVariante();
         const idx = indiceEjercicio(ej);
         const activa = variante !== null && variante !== undefined && idx !== null && !!forzado.original;
         if (activa) forzado.variantes.set(idx, variante);
@@ -549,7 +509,7 @@
     }
 
     // =========================================================================
-    // 9. RESPUESTAS DIRECTAS DESDE EL OBJETO `capitulo`
+    // 9. RESPUESTAS DIRECTAS DESDE EL OBJETO `capitulo` (sin comparar ni iterar)
     // =========================================================================
     const b64 = {
         d: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz<>",
@@ -607,6 +567,7 @@
         await sleep(20);
     }
 
+    /** Tipo 4: campos literales (texto) */
     async function llenarTipoLiteral(p, literales, cursor) {
         for (const c of p.pregunta.campos) {
             const campo = literales[cursor.lit++];
@@ -615,6 +576,7 @@
         }
     }
 
+    /** Tipos 2 y 3: arrastrar / dato (listas desplegables) */
     function llenarTipoSelector(p, selectores, cursor) {
         p.pregunta.correctas.forEach(c => {
             const campo = selectores[cursor.sel++];
@@ -622,12 +584,14 @@
         });
     }
 
+    /** Tipo 0: selección simple (radio) */
     function marcarTipoRadio(p) {
         const visible = p.pregunta.visibles.find(v => v[0] === p.pregunta.correcta[0]);
         const radio = visible && document.getElementById(visible[1]);
         if (radio && !radio.checked) radio.click();
     }
 
+    /** Tipo 1: selección múltiple (checkbox) */
     function marcarTipoChecks(p) {
         p.pregunta.forEach(opt => {
             const cb = document.getElementById(opt.id);
@@ -635,6 +599,7 @@
         });
     }
 
+    /** Devuelve true si el ejercicio tenía datos en `capitulo`. */
     async function llenarCamposDesdeCapitulo(ej) {
         const preguntas = obtenerPreguntasEjercicio(ej);
         if (!preguntas) return false;
@@ -654,8 +619,9 @@
     }
 
     // =========================================================================
-    // 10. CALCULADORAS (CodeMirror) Y DIAGRAMAS GOJS DESDE JSON
+    // 10. CALCULADORAS (CodeMirror)
     // =========================================================================
+    const esDiagramaDato = c => !!c && c.tipo === 'diagrama';
     const esDiagramaVivo = c => !!c.querySelector('canvas') || /gojsGraph\s*\(/.test(c.textContent);
 
     async function escribirCelda(liveCalc, indice, texto) {
@@ -674,25 +640,57 @@
         }
     }
 
+    function instruccionesDe(calc) {
+        return Array.isArray(calc && calc.instrucciones) ? calc.instrucciones : [];
+    }
+
     function contarCeldasConContenido(calc) {
         const n = Array.from(calc.querySelectorAll('.CodeMirror'))
             .filter(cm => cm.CodeMirror && cm.CodeMirror.getValue().trim() !== '').length;
         return Math.max(1, n);
     }
 
-    function planificarCalculadorasJSON(liveNoDiag, srcNoDiag) {
+    function planificarCalculadoras(liveNoDiag, srcNoDiag) {
         const plan = new Map();
         if (liveNoDiag.length === srcNoDiag.length) {
-            liveNoDiag.forEach((c, j) => plan.set(c, (srcNoDiag[j] && srcNoDiag[j].instrucciones) || []));
+            liveNoDiag.forEach((c, j) => plan.set(c, instruccionesDe(srcNoDiag[j])));
             return plan;
         }
-        const todas = srcNoDiag.flatMap(c => (c && c.instrucciones) || []).filter(Boolean);
+        const todas = srcNoDiag.flatMap(instruccionesDe).filter(t => t);
         const cupo = liveNoDiag.map(contarCeldasConContenido);
         liveNoDiag.forEach((c, j) =>
             plan.set(c, j === liveNoDiag.length - 1 ? todas.splice(0) : todas.splice(0, cupo[j])));
         return plan;
     }
 
+    async function llenarCalculadoraNormal(liveCalc, textos) {
+        for (let k = 0; k < textos.length; k++) await escribirCelda(liveCalc, k, textos[k]);
+    }
+
+    async function llenarCalculadoras(ejActual, calcs) {
+        const live = Array.from(ejActual.querySelectorAll('.calculadora'));
+
+        const srcDiag = calcs.filter(esDiagramaDato);
+        const srcNoDiag = calcs.filter(c => !esDiagramaDato(c));
+        const liveNoDiag = live.filter(c => !esDiagramaVivo(c));
+        const plan = planificarCalculadoras(liveNoDiag, srcNoDiag);
+
+        let idxDiag = 0;
+        for (const liveCalc of live) {
+            if (estado.cancelado) return;
+            if (esDiagramaVivo(liveCalc)) {
+                const srcCalc = srcDiag[idxDiag++];
+                if (!srcCalc) continue;
+                await procesarDiagrama(liveCalc, srcCalc);
+            } else {
+                await llenarCalculadoraNormal(liveCalc, plan.get(liveCalc) || []);
+            }
+        }
+    }
+
+    // =========================================================================
+    // 11. DIAGRAMAS GOJS
+    // =========================================================================
     function limpiarComodines(t) {
         if (typeof t !== 'string' || !t.includes('_(')) return t;
         return t.replace(/_\(([\s\S]*?)_\)/g, (m, inner) => inner.split('_|')[0].replace(/_/g, ''))
@@ -775,65 +773,42 @@
         }
     }
 
-    async function rellenarDiagramaComoTexto(liveCalc, instrucciones) {
-        const textos = (instrucciones || []).map(limpiarComodines);
+    async function rellenarDiagramaComoTexto(liveCalc, srcCalc) {
+        const textos = instruccionesDe(srcCalc).map(limpiarComodines);
         for (let k = 0; k < textos.length; k++) await escribirCelda(liveCalc, k, textos[k]);
     }
 
-    async function procesarDiagramaJSON(liveCalc, srcCalc) {
-        const modelo = (srcCalc && srcCalc.modelo) || extraerModeloGoJS(liveCalc.textContent);
-        const instrucciones = (srcCalc && srcCalc.instrucciones) || [];
+    async function procesarDiagrama(liveCalc, srcCalc) {
+        const modelo = srcCalc.modelo || extraerModeloGoJS(liveCalc.textContent);
+        if (!modelo) return;
 
-        if (modelo) {
-            await esperarHasta(() => diagramaDe(liveCalc), 2500);
-            const d = diagramaDe(liveCalc);
-            if (d && inyectarModelo(d, modelo)) {
-                await sleep(60);
-                dispararShiftEnter(liveCalc.querySelector('canvas'));
-                return;
-            }
-        }
-        await rellenarDiagramaComoTexto(liveCalc, instrucciones);
-    }
+        await esperarHasta(() => diagramaDe(liveCalc), 2500);
+        const d = diagramaDe(liveCalc);
 
-    async function llenarCalculadorasDesdeJSON(ejActual, calculadorasJSON) {
-        const live = Array.from(ejActual.querySelectorAll('.calculadora'));
-        if (!live.length) return;
-        const listaJSON = Array.isArray(calculadorasJSON) ? calculadorasJSON : [];
-
-        const srcDiag = listaJSON.filter(c => c && (c.tipo === 'diagrama' || !!c.modelo));
-        const srcNoDiag = listaJSON.filter(c => c && c.tipo !== 'diagrama' && !c.modelo);
-        const liveNoDiag = live.filter(c => !esDiagramaVivo(c));
-        const plan = planificarCalculadorasJSON(liveNoDiag, srcNoDiag);
-
-        let idxDiag = 0;
-        for (const liveCalc of live) {
-            if (estado.cancelado) return;
-            if (esDiagramaVivo(liveCalc)) {
-                const srcCalc = srcDiag[idxDiag++];
-                if (!srcCalc) continue;
-                await procesarDiagramaJSON(liveCalc, srcCalc);
-            } else {
-                const textos = plan.get(liveCalc) || [];
-                for (let k = 0; k < textos.length; k++) await escribirCelda(liveCalc, k, textos[k]);
-            }
+        if (d && inyectarModelo(d, modelo)) {
+            await sleep(60);
+            dispararShiftEnter(liveCalc.querySelector('canvas'));
+        } else {
+            await rellenarDiagramaComoTexto(liveCalc, srcCalc);
         }
     }
 
     // =========================================================================
-    // 11. RELLENO COMPLETO DE UN EJERCICIO
+    // 12. RELLENO COMPLETO DE UN EJERCICIO
     // =========================================================================
-    async function rellenarContenidoEjercicio(ejActual, calculadorasJSON) {
+    /** Campos y opciones: siempre desde `capitulo`. Calculadoras y diagramas: del JSON. */
+    async function rellenarContenidoEjercicio(ejActual, calcs) {
         await llenarCamposDesdeCapitulo(ejActual);
-        if (estado.cancelado || !Array.isArray(calculadorasJSON)) return;
+        if (estado.cancelado || !calcs) return;
 
-        await llenarCalculadorasDesdeJSON(ejActual, calculadorasJSON);
+        await llenarCalculadoras(ejActual, calcs);
         await sleep(100);
     }
 
     // =========================================================================
-    // 12. INTERFAZ GRÁFICA (MISMA ESTRUCTURA V36.1)
+    // 13. INTERFAZ GRÁFICA
     // =========================================================================
+    const ui = {};
     const ICONO_DESCARGA = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>`;
 
     function crearElemento(tag, estilos = {}, props = {}) {
@@ -878,14 +853,14 @@
             width: '32px', height: '32px', background: '#2563eb', color: '#ffffff',
             border: 'none', borderRadius: '50%', cursor: 'pointer',
             boxShadow: '0 2px 8px rgba(37, 99, 235, 0.4)', transition: 'all 0.2s ease', padding: '0'
-        }, { innerHTML: ICONO_DESCARGA, title: 'Cargar JSON desde GitHub (DEF)' });
+        }, { innerHTML: ICONO_DESCARGA });
     }
 
     function crearBotonLocal() {
         return crearElemento('button', {
             padding: '6px 12px', background: '#334155', color: 'white', border: 'none',
             borderRadius: '999px', cursor: 'pointer', fontSize: '11px', fontWeight: '600'
-        }, { textContent: 'Local', title: 'Cargar JSON local' });
+        }, { textContent: 'Local' });
     }
 
     function crearBotonCerrar() {
@@ -898,9 +873,9 @@
 
     function crearPestana() {
         return crearElemento('button', {
-            width: '16px', height: '36px', background: 'rgba(37, 99, 235, 0.25)', color: 'transparent',
-            border: 'none', outline: 'none', borderRadius: '0px', cursor: 'pointer', opacity: '0.35', padding: '0'
-        }, { title: 'Panel inyector' });
+            width: '16px', height: '36px', background: 'transparent', color: 'transparent',
+            border: 'none', outline: 'none', borderRadius: '0px', cursor: 'pointer', opacity: '0', padding: '0'
+        });
     }
 
     function crearPanelMenu() {
@@ -915,18 +890,17 @@
 
     function crearInputArchivo() {
         return crearElemento('input', { display: 'none' },
-            { className: 'tm-inyectado', type: 'file', accept: '.json,application/json' });
+            { className: 'tm-inyectado', type: 'file', accept: '.json' });
     }
 
     function construirUI() {
-        if (!document.body || document.getElementById('inyector-v37-root')) return;
         const meta = obtenerMetadatosCapitulo();
         const etiqueta = meta ? `${meta.materia.toUpperCase()} · Cap ${meta.num}` : 'V37';
 
         const raiz = crearElemento('div', {
             position: 'fixed', bottom: '28px', right: '0', zIndex: '9999',
             display: 'flex', alignItems: 'center', fontFamily: 'system-ui, sans-serif'
-        }, { id: 'inyector-v37-root', className: 'tm-inyectado' });
+        }, { className: 'tm-inyectado' });
 
         ui.panel = crearPanelMenu();
         ui.contadorDefensa = crearContadorDefensa();
@@ -948,18 +922,17 @@
 
     function alternarMenu() {
         estado.menuAbierto = !estado.menuAbierto;
-        if (ui.panel) ui.panel.style.display = estado.menuAbierto ? 'flex' : 'none';
+        ui.panel.style.display = estado.menuAbierto ? 'flex' : 'none';
         if (estado.menuAbierto && estado.esperaDefensaActiva) {
             actualizarContadorPanel();
         }
     }
 
     function mostrarProgreso(texto) {
-        if (ui.btnGitHub) ui.btnGitHub.innerHTML = `<span style="font-size:10px; font-weight:bold;">${texto}</span>`;
+        ui.btnGitHub.innerHTML = `<span style="font-size:10px; font-weight:bold;">${texto}</span>`;
     }
 
     function bloquearUI() {
-        if (!ui.btnGitHub) return;
         ui.btnGitHub.disabled = true;
         ui.btnLocal.disabled = true;
         ui.selectModo.disabled = true;
@@ -969,7 +942,7 @@
 
     function resetearUI() {
         desactivarEscudoFoco();
-        if (estado.cancelado || !ui.btnGitHub) return;
+        if (estado.cancelado) return;
         ui.btnGitHub.disabled = false;
         ui.btnLocal.disabled = false;
         ui.selectModo.disabled = false;
@@ -978,43 +951,54 @@
     }
 
     // =========================================================================
-    // 13. VALIDACIÓN Y ORQUESTACIÓN
+    // 14. ORQUESTACIÓN: PREPARACIÓN Y VALIDACIÓN
     // =========================================================================
-    const necesitaCalculadora = ej => !!ej.querySelector('.calculadora');
+    function parsearJSON(texto) {
+        try {
+            const datos = JSON.parse(texto);
+            return (datos && typeof datos === 'object' && datos.ejercicios && typeof datos.ejercicios === 'object') ? datos : null;
+        } catch (e) { return null; }
+    }
 
-    function validarJSONContraPagina(datosJSON) {
+    const slugComparable = t => sinTildes(String(t || '')).toLowerCase().replace(/[^a-z0-9]/g, '');
+
+    /** Devuelve mensaje de error o null si todo bien. */
+    function validarCapitulo(datos) {
         const meta = obtenerMetadatosCapitulo();
+        const capDoc = datos.capitulo ? String(parseInt(datos.capitulo, 10)) : null;
         const capPag = extraerNumCapTitulo(document.title) || (meta && meta.num);
-        if (datosJSON.capituloNum && capPag && String(datosJSON.capituloNum) !== String(capPag)) {
-            return `Error: JSON de cap ${datosJSON.capituloNum}, pero estás en cap ${capPag}.`;
+        if (capDoc && capPag && capDoc !== String(parseInt(capPag, 10))) {
+            return `Error: JSON de cap ${capDoc}, pero estás en cap ${capPag}.`;
         }
-        if (datosJSON.materia && meta && datosJSON.materia.toLowerCase() !== meta.materia.toLowerCase()) {
-            return `Error: JSON de ${datosJSON.materia}, pero estás en ${meta.materia}.`;
+        if (datos.materia && meta && slugComparable(datos.materia) !== slugComparable(meta.materia)) {
+            return `Error: JSON de "${datos.materia}", pero estás en "${meta.materia}".`;
         }
         return null;
     }
 
-    async function procesarModoEnCurso(datosJSON) {
-        const ej = encontrarEjercicioCorriendo();
-        if (!ej) {
-            showToast('No hay ningún ejercicio corriendo en este momento.', 'warning');
-            return;
-        }
+    // =========================================================================
+    // 15. ORQUESTACIÓN: MODO "SIN CORREGIR (EN CURSO)"
+    // =========================================================================
+    const necesitaDocumento = ej => !!ej.querySelector('.calculadora');
 
-        const res = resolverCalculadorasJSON(datosJSON, ej);
-        if (res.noExisteEnJSON && necesitaCalculadora(ej)) {
-            showToast(`Este ejercicio (${ej.id}) no está en el JSON.`, 'warning');
-            return;
-        }
-        if (res.varianteFaltante && necesitaCalculadora(ej)) {
-            showToast(`Variante ${varianteDe(ej)} de ${ej.id} no guardada en el JSON.`, 'warning');
+    async function procesarModoEnCurso(datos) {
+        const ej = encontrarEjercicioCorriendo();
+        if (!ej) { showToast('No hay ningún ejercicio corriendo en este momento.', 'warning'); return; }
+
+        const entry = buscarEjercicioEmisor(datos, ej);
+        const calcs = calculadorasPara(entry, varianteDe(ej));
+        if (!calcs && necesitaDocumento(ej)) {
+            showToast('No hay datos guardados para este ejercicio/variante.', 'warning');
             return;
         }
 
         mostrarProgreso(1);
-        await rellenarContenidoEjercicio(ej, res.calculadoras);
+        await rellenarContenidoEjercicio(ej, calcs);
     }
 
+    // =========================================================================
+    // 16. ORQUESTACIÓN: MODOS MASIVOS (no_iniciados / iniciados / todos)
+    // =========================================================================
     function debeProcesarEjercicio(modo, ej) {
         const b = obtenerEstadoBotones(ej);
         if (modo === 'no_iniciados') return !b.repetirVisible && b.generarVisible;
@@ -1022,32 +1006,35 @@
         return b.generarVisible || b.repetirVisible;
     }
 
-    async function procesarEjercicio(datosJSON, ej) {
-        const entrada = obtenerEntradaJSON(datosJSON, ej);
-        if (!entrada && necesitaCalculadora(ej)) return false;
+    /**
+     * Genera el ejercicio forzando la variante del emisor, rellena y corrige una sola vez.
+     */
+    async function procesarEjercicio(datos, ej) {
+        const entry = buscarEjercicioEmisor(datos, ej);
+        const objetivo = entry ? elegirVarianteObjetivo(entry) : null;
+        const calcs = calculadorasPara(entry, objetivo);
+        if (!calcs && necesitaDocumento(ej)) return false;
 
         for (let intento = 0; intento < CONFIG.MAX_INTENTOS; intento++) {
             if (estado.cancelado) return false;
 
-            const prevRes = resolverCalculadorasJSON(datosJSON, ej);
-            await iniciarOReiniciar(ej, intento, prevRes.varianteObjetivo);
+            await iniciarOReiniciar(ej, intento, objetivo);
             if (estado.cancelado) return false;
 
-            const postRes = resolverCalculadorasJSON(datosJSON, ej);
-            if (postRes.varianteFaltante) {
-                console.warn(`[Inyector] ${ej.id}: salió variante ${varianteDe(ej)} sin datos en JSON, reintentando.`);
+            if (objetivo !== null && !coincideVariante(ej, objetivo)) {
+                console.warn(`[Inyector] ${ej.id}: salió variante ${varianteDe(ej)}, se esperaba ${objetivo}.`);
                 await clickCorregir(ej);
                 continue;
             }
 
-            await rellenarContenidoEjercicio(ej, postRes.calculadoras);
+            await rellenarContenidoEjercicio(ej, calcs);
             await clickCorregir(ej);
             return true;
         }
         return false;
     }
 
-    async function procesarModoMasivo(datosJSON, modo) {
+    async function procesarModoMasivo(datos, modo) {
         const ejercicios = Array.from(document.querySelectorAll('div.ejercicio[id]'));
         let procesados = 0, omitidos = 0;
 
@@ -1059,28 +1046,38 @@
             if (!debeProcesarEjercicio(modo, ej)) { omitidos++; continue; }
 
             mostrarProgreso(i + 1);
-            if (await procesarEjercicio(datosJSON, ej)) procesados++;
+            if (await procesarEjercicio(datos, ej)) procesados++;
         }
 
         if (procesados === 0 && omitidos > 0) showToast(`No se inyectó nada: ${omitidos} omitidos por filtros.`, 'info');
         else if (procesados === 0) showToast('Ningún ejercicio coincide con el JSON.', 'warning');
     }
 
-    async function ejecutarInyeccionConJSON(datosJSON) {
-        const error = validarJSONContraPagina(datosJSON);
-        if (error) { showToast(error, 'error'); return resetearUI(); }
-
+    // =========================================================================
+    // 17. ORQUESTADOR PRINCIPAL
+    // =========================================================================
+    async function ejecutarInyeccion(datos) {
         activarEscudoFoco();
         const modo = ui.selectModo.value;
 
-        if (modo === 'sin_corregir') await procesarModoEnCurso(datosJSON);
-        else await procesarModoMasivo(datosJSON, modo);
+        if (modo === 'sin_corregir') await procesarModoEnCurso(datos);
+        else await procesarModoMasivo(datos, modo);
 
         if (!estado.cancelado) resetearUI();
     }
 
+    async function ejecutarInyeccionConJSON(texto) {
+        const datos = parsearJSON(texto);
+        if (!datos) { showToast('Error: JSON inválido.', 'error'); return resetearUI(); }
+
+        const error = validarCapitulo(datos);
+        if (error) { showToast(error, 'error'); return resetearUI(); }
+
+        await ejecutarInyeccion(datos);
+    }
+
     // =========================================================================
-    // 14. HANDLERS DE BOTONES
+    // 18. HANDLERS DE BOTONES
     // =========================================================================
     async function alClickGitHub() {
         if (ui.btnGitHub.disabled) return;
@@ -1089,10 +1086,10 @@
 
         bloquearUI();
         try {
-            const datosJSON = await cargarJSONDesdeGitHub(meta);
-            await ejecutarInyeccionConJSON(datosJSON);
+            const texto = await descargarJSONDesdeGitHub(meta);
+            await ejecutarInyeccionConJSON(texto);
         } catch (err) {
-            showToast(err.message || 'Error al cargar JSON de GitHub.', 'error');
+            showToast(err.message || 'Error al conectar con GitHub.', 'error');
             resetearUI();
         }
     }
@@ -1106,24 +1103,16 @@
         if (!file) return;
 
         bloquearUI();
-        const meta = obtenerMetadatosCapitulo();
         const reader = new FileReader();
         reader.onload = async e => {
             ui.inputFile.value = '';
-            try {
-                const parsed = JSON.parse(e.target.result);
-                const datosJSON = normalizarJSON(parsed, meta);
-                await ejecutarInyeccionConJSON(datosJSON);
-            } catch (err) {
-                showToast(err.message || 'Error: JSON inválido.', 'error');
-                resetearUI();
-            }
+            await ejecutarInyeccionConJSON(e.target.result);
         };
         reader.readAsText(file);
     }
 
     // =========================================================================
-    // 15. INICIALIZACIÓN
+    // 19. INICIALIZACIÓN
     // =========================================================================
     function conectarEventos() {
         document.addEventListener('click', interceptarGuardar, true);
