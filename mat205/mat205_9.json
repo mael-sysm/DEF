@@ -1,0 +1,897 @@
+{
+  "materia": "mat205",
+  "capitulo": 9,
+  "resumen": {
+    "ids_ejercicios": [
+      "ejercicio1",
+      "ejercicio2",
+      "ejercicio3",
+      "ejercicio4",
+      "ejercicio5",
+      "ejercicio6",
+      "ejercicio7",
+      "ejercicio8",
+      "ejercicio9",
+      "ejercicio10",
+      "ejercicio11",
+      "ejercicio12",
+      "ejercicio13",
+      "ejercicio14",
+      "ejercicio15",
+      "ejercicio16",
+      "ejercicio17",
+      "ejercicio18",
+      "ejercicio19",
+      "ejercicio20",
+      "ejercicio21",
+      "ejercicio22"
+    ],
+    "variantes_por_ejercicio": {
+      "ejercicio1": [
+        "1"
+      ],
+      "ejercicio2": [
+        "0",
+        "1"
+      ],
+      "ejercicio3": [
+        "1",
+        "2"
+      ],
+      "ejercicio4": [
+        "1",
+        "2"
+      ],
+      "ejercicio5": [
+        "0",
+        "2"
+      ],
+      "ejercicio6": [
+        "0",
+        "2"
+      ],
+      "ejercicio7": [
+        "0",
+        "1"
+      ],
+      "ejercicio8": [
+        "1",
+        "2"
+      ],
+      "ejercicio9": [
+        "2"
+      ],
+      "ejercicio10": [
+        "0",
+        "2"
+      ],
+      "ejercicio11": [
+        "1",
+        "2"
+      ],
+      "ejercicio12": [
+        "1",
+        "2"
+      ],
+      "ejercicio13": [
+        "0"
+      ],
+      "ejercicio14": [
+        "0"
+      ],
+      "ejercicio15": [
+        "0"
+      ],
+      "ejercicio16": [
+        "0"
+      ],
+      "ejercicio17": [
+        "0"
+      ],
+      "ejercicio18": [
+        "0"
+      ],
+      "ejercicio19": [
+        "0"
+      ],
+      "ejercicio20": [
+        "0"
+      ],
+      "ejercicio21": [
+        "0"
+      ],
+      "ejercicio22": [
+        "0"
+      ]
+    }
+  },
+  "ejercicios": {
+    "ejercicio1": {
+      "id": "ejercicio1",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[2.4,4.5,6.6,8.4,9.3,10.2,11.1,12.5,14.7,16.1,17.4,18.3],\n          [11,41,90,141,169,205,251,318,421,545,592,655]];\nvar vf = [x=>x**2, x=>1/x, x=>Math.exp(x/8)];\nvar {f, c, r} = vf.mincuad(td);\nprint(c);\nr"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:[f,td], xi:2.4, xf:18.3})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[2,4,7,9,11,12,13,14,16,17,18].map(f).round(2)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio2": {
+      "id": "ejercicio2",
+      "variantes_guardadas": [
+        "0",
+        "1"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[3.8,1.3,9.2,3.4,1,5.1,5.7,9,8,6.4,6.6,8.1],\n          [15,8,124,13,8,27,35,116,84,46,50,87]];\nvar vf = [x=>x**3, x=>Math.sqrt(x), x=>1/Math.cbrt(x)];\nvar {f, c, r} = vf.mincuad(td);\nprint(c);\nr",
+              "plot({f:[f,td], xi:1.0, xf:9.2})",
+              "f.df1(6).round(4)"
+            ]
+          }
+        ],
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[3.8, 1.5, 9.2, 3.6, 1.0, 5.1, 5.4, 9.0, 8.0, 6.1, 6.8, 8.3],\n          [15, 8, 124, 13, 8, 27, 35, 116, 84, 46, 50, 87]];\nvar vf = [x=>x**3, x=>Math.sqrt(x), x=>1/Math.cbrt(x)];\nvar {f, c, r} = vf.mincuad(td);\nprint(c);\nr"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:[f,td], xi:1.0, xf:9.2})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "f.df1(6).round(4)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio3": {
+      "id": "ejercicio3",
+      "variantes_guardadas": [
+        "1",
+        "2"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[1, 3, 5, 6, 8, 12, 14, 16, 20],\n          [1,3,2,2,5,4,6,6,7]];\nvar vf = [x=>Math.log(x), x=>Math.sin(x), x=>-Math.cos(x)];\nvar {f, c, r} = vf.mincuad(td);\nprint(c);\nr",
+              "plot({f:[f,td], xi:1, xf:20})",
+              "f.incremental({xi:5, dx:-0.1}).round(5)"
+            ]
+          }
+        ],
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[1,2,5,6,7,11,15,16,21],\n          [1,3,2,2,5,4,6,6,7]];\nvar vf = [x=>Math.log(x), x=>Math.sin(x), x=>-Math.cos(x)];\nvar {f, c, r} = vf.mincuad(td);\nprint(c);\nr"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:[f,td], xi:1, xf:21})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "f.incremental({xi:5, dx:-0.1}).round(5)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio4": {
+      "id": "ejercicio4",
+      "variantes_guardadas": [
+        "1",
+        "2"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[1, 3, 7, 10,\t12, 14,\t16, 17,\t22, 23],\n          [9.3, 19.3, 34.7, 45.2, 52, 58.6, 65.2, 68.5, 84.7, 87.9]];\nvar vf = [x=>x, x=>Math.log10(x), x=>Math.nthroot(x,5)];\nvar {f, c, r} = vf.mincuad(td);\nprint(c);\nr",
+              "plot({f:[f,td], xi:1, xf:23})",
+              "[[1,4,6,2,f(2)],\n [2,3,1,5,f(3)],\n [3,1,4,7,f(4)],\n [4,2,5,6,f(5)]].gaussjpt().transpose().round(2)"
+            ]
+          }
+        ],
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[1,4,8,10,13,15,17,18,22,24],\n          [9.3,23.4,38.2,45.2,55.3,61.9,68.5,71.8,84.7,91.1]];\nvar vf = [x=>x, x=>Math.log10(x), x=>Math.nthroot(x,5)];\nvar {f, c, r} = vf.mincuad(td);\nprint(c);\nr"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:[f,td], xi:1, xf:24})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[[1,4,6,2,f(2)],\n [2,3,1,5,f(3)],\n [3,1,4,7,f(4)],\n [4,2,5,6,f(5)]].gaussjpt().transpose().round(2)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio5": {
+      "id": "ejercicio5",
+      "variantes_guardadas": [
+        "0",
+        "2"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[1,3,4,6,7,9,8,10,11,12],\n          [6,94,190,461,598,705,693,577,245,-362]];\nvar vf = [x=>1, x=>x**2.3, x=>x**3.1, x=>x**4.2];\nvar {f, c, r} = vf.mincuad(td);\nprint(c);\nr",
+              "plot({f:[f,td], xi:1, xf:12})",
+              "f.newton({xi:11.7, err:7}).round(2)",
+              "[1,2,0,-3,5,f(7)].roots().round(1)"
+            ]
+          }
+        ],
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[1, 3, 4, 6, 7, 9, 8, 10, 11, 12],\n          [6, 100, 195, 470, 600, 705, 685, 570, 240, -362]];\nvar vf = [x=>1, x=>x**2.3, x=>x**3.1, x=>x**4.2];\nvar {f, c, r} = vf.mincuad(td);\nprint(c);\nr"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:[f,td], xi:1, xf:12})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "f.refa({xi:11, xf:12, err:7}).round(2)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[1,2,0,-3,5,f(7)].roots().round(1)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio6": {
+      "id": "ejercicio6",
+      "variantes_guardadas": [
+        "0",
+        "2"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[2.3,4.5,6.7,8.4,9.2,10.1,11.2,12.6,14.5,16.3,17.2,18.1],\n          [11,41,90,141,169,205,251,318,421,545,592,655]];\nvar vi = [1.1,1.2,1.3];\nvar fa = ([a,b,c], [x]) => a*x**2+b/x+c*Math.exp(x/8);\nvar {f, c, r} = fa.mincuadSimplex({td,vi});\nprint(c);\nr"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:[f,td], xi:2.3, xf:18.1})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[2,4,7,9,11,12,13,14,16,17,18].map(f).round(2)"
+            ]
+          }
+        ],
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[2.1,4.6,6.3,8.1,9.2,10.5,11.4,12.8,14.9,16.7,17.8,18.1],\n          [11,41,90,141,169,205,251,318,421,545,592,655]];\nvar vi = [1.1,1.2,1.3];\nvar fa = ([a,b,c], [x]) => a*x**2+b/x+c*Math.exp(x/8);\nvar {f, c, r} = fa.mincuadSimplex({td,vi});\nprint(c);\nr",
+              "plot({f:[f,td], xi:2.1, xf:18.1})",
+              "[2,4,7,9,11,12,13,14,16,17,18].map(f).round(2)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio7": {
+      "id": "ejercicio7",
+      "variantes_guardadas": [
+        "0",
+        "1"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[3.8, 1.3, 9.2, 3.4, 1, 5.1, 5.7, 9, 8,6.4, 6.6, 8.1],\n          [15,8,124,13,8,27,35,116,84,46,50,87]];\nvar vi = [1.1,1.2,1.3];\nvar fa = ([a,b,c], [x]) => a*x**3+b*Math.sqrt(x)+c/Math.cbrt(x);\nvar {f, c, r} = fa.mincuadSimplex({td,vi});\nprint(c);\nr",
+              "plot({f:[f,td], xi:1, xf:9.2})",
+              "f.df1(6).round(4)"
+            ]
+          }
+        ],
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[3.8,1.5,9.2,3.6,1.0,5.1,5.4,9.0,8.0,6.1,6.8,8.3],\n          [15,8,124,13,8,27,35,116,84,46,50,87]];\nvar vi = [1.1,1.2,1.3];\nvar fa = ([a,b,c], [x]) => a*x**3+b*Math.sqrt(x)+c/Math.cbrt(x);\nvar {f, c, r} = fa.mincuadSimplex({td,vi});\nprint(c);\nr"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:[f,td], xi:1, xf:9.2})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "f.df1(6).round(4)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio8": {
+      "id": "ejercicio8",
+      "variantes_guardadas": [
+        "1",
+        "2"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[1,3,5,6,8,12,14,16,20],\n          [1,3,2,2,5,4,6,6,7]];\nvar vi = [1.1,1.2,1.3];\nvar fa = ([a,b,c], [x]) => a*Math.log(x)+b*Math.sin(x)-c*Math.cos(x);\nvar {f, c, r} = fa.mincuadSimplex({td,vi});\nprint(c);\nr"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:[f,td], xi:1, xf:20})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "f.incremental({xi:5, dx:-0.1}).round(5)"
+            ]
+          }
+        ],
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[1,2,5,6,7,11,15,16,21],\n          [1,3,2,2,5,4,6,6,7]];\nvar vi = [1.1,1.2,1.3];\nvar fa = ([a,b,c], [x]) => a*Math.log(x)+b*Math.sin(x)-c*Math.cos(x);\nvar {f, c, r} = fa.mincuadSimplex({td,vi});\nprint(c);\nr",
+              "plot({f:[f,td], xi:1, xf:21})",
+              "f.incremental({xi:5, dx:-0.1}).round(5)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio9": {
+      "id": "ejercicio9",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[1,4,8,10,13,15,17,18,22,24],\n          [9.3,23.4,38.2,45.2,55.3,61.9,68.5,71.8,84.7,91.1]];\nvar vi = [1.1,1.2,1.3];\nvar fa = ([a,b,c], [x]) => a*x+b*Math.log10(x)+c*Math.nthroot(x,5);\nvar {f, c, r} = fa.mincuadSimplex({td,vi});\nprint(c);\nr"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:[f,td], xi:1, xf:24})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[[1,4,6,2,f(2)],\n [2,3,1,5,f(3)],\n [3,1,4,7,f(4)],\n [4,2,5,6,f(5)]].gaussjpt().transpose().round(2)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio10": {
+      "id": "ejercicio10",
+      "variantes_guardadas": [
+        "0",
+        "2"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[1,3,4,6,7,9,8,10,11,12],\n          [6,94,190,461,598,705,693,577,245,-362]];\nvar vi = [1.1,1.2,1.3,1.4];\nvar fa = ([a,b,c,d], [x]) => a+b*x**2.3+c*x**3.1+d*x**4.2;\nvar {f, c, r} = fa.mincuadSimplex({td,vi});\nprint(c);\nr",
+              "plot({f:[f,td], xi:1, xf:12})",
+              "f.newton({xi:11.7, err:7}).round(2)",
+              "[1,2,0,-3,5,f(7)].roots().round(1)"
+            ]
+          }
+        ],
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[1,3,4,6,7,9,8,10,11,12],\n          [6,100,195,470,600,705,685,570,240,-362]];\nvar vi = [1.1,1.2,1.3,1.4];\nvar fa = ([a,b,c,d], [x]) => a+b*x**2.3+c*x**3.1+d*x**4.2;\nvar {f, c, r} = fa.mincuadSimplex({td,vi});\nprint(c);\nr"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:[f,td], xi:1, xf:12})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "f.refa({xi:11,xf:12, err:7}).round(2)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[1,2,0,-3,5,f(7)].roots().round(1)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio11": {
+      "id": "ejercicio11",
+      "variantes_guardadas": [
+        "1",
+        "2"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[1,3,6,7,9,12,16,18,22,24],\n          [0.17,1.49,3.39,5.9,8.99,14.64,21.43,29.29,38.16,48]];\nvar vi = [1.1,1.2,1.3,1.4];\nvar fa = ([a,b,c,d], [x]) => (a*x**2+b*Math.log(x))/(c+d*Math.cbrt(x));\nvar {f, c, r} = fa.mincuadSimplex({td,vi});\nprint(c);\nr"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:[f,td], xi:1, xf:24})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var fr = ([x, y]) => [\n  x**2+2*x*y**2-f(5)-44,\n  x**2*y-3*x**2*y**2+f(6)+117\n];\nfr.newtonnl({vi:[1,2], err:9}).v.round(3)"
+            ]
+          }
+        ],
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[1,2,5,7,9,11,15,19,21,24],\n          [0.17,1.49,3.39,5.9,8.99,14.64,21.43,29.29,38.16,48]];\nvar vi = [1.1,1.2,1.3,1.4];\nvar fa = ([a,b,c,d], [x]) => (a*x**2+b*Math.log(x))/(c+d*Math.cbrt(x));\nvar {f, c, r} = fa.mincuadSimplex({td,vi});\nprint(c);\nr",
+              "plot({f:[f,td], xi:1, xf:24})",
+              "var fr = ([x, y]) => [\n  x**2+2*x*y**2-f(5)-44,\n  x**2*y-3*x**2*y**2+f(6)+117\n];\nfr.newtonnl({vi:[1,2], err:9}).v.round(3)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio12": {
+      "id": "ejercicio12",
+      "variantes_guardadas": [
+        "1",
+        "2"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td=[[2,1.4,4,3.6,7.4,6.2,1.2,3,5.5,7.3,2.8,3.2],\n        [2.3,4.3,3.2,2.5,5.1,3.3,6.1,4.2,2.2,1.3,2.6,2.9],\n        [1.71,1.36,4.51,3.44,10.40,6.93,1.03,3.72,4.68,3.94,2.80,3.26]];\nvar vi=[1.1,1.2,1.3,1.4,1.5];\nvar fa=([a,b,c,d,e],[x,y])=>(a+b*Math.log(x)+c*Math.log(y))/(d/x+e/y);\nvar {f,c,r}=fa.mincuadSimplex({td,vi});\nprint(c);r",
+              "var td2=[[1,2.2,3.3,4.4,5.6,7.7,8.8],\n         [1.5,2.3,3.5,4.8,5.9,7.9,9]];\ntd2.transpose().map(([x,y])=>f(x,y).round(2))"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var trace1 = {\n  x:td[0] , \n  y:td[1] ,\n  z: td[2],\n  mode: \"markers\",\n  marker: {\n    size: 7,\n    color: \"fuchsia\",\n  },\n  type: \"scatter3d\"\n};",
+              "var[x,y ,[z] ] = getAxes({fun:[f], xmin:0.2, xmax:8.4, dx:0.2, ymin:0.3, ymax:7.1, dy:0.2}).round(2);",
+              "var trace2 = {\n  x,\n  y,\n  z,\n  contours: {\n    x:{show:true, color: \"gray\"},\n    y:{show:true, color: \"gray\"},\n    z:{show:true, color: \"gray\"},\n  },\n  colorscale: \"Greens\",\n  showscale: false,\n  type: \"surface\"\n};",
+              "var layout = {\n  scene: {\n    aspectratio: {x:1, y:1, z:1},\n  }\n};",
+              "plotly([trace1,trace2],layout )"
+            ]
+          }
+        ],
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var td = [[2.0, 1.3, 4.0, 3.6, 7.3, 6.2, 1.2, 3.0, 5.5, 7.2, 2.8, 3.2],\n      [2.3, 4.2, 3.2, 2.6, 5.1, 3.3, 6.2, 4.2, 2.2, 1.3, 2.6, 2.9],\n      [1.71, 1.36, 4.51, 3.44, 10.40, 6.93, 1.03, 3.72, 4.68, 3.94, 2.80, 3.26]];\nvar vi = [1.1, 1.2, 1.3, 1.4, 1.5];\nvar fa = ([a, b, c, d, e], [x, y]) =>(a + b * Math.log(x) + c * Math.log(y)) /(d / x + e / y);\nvar { f, c, r } = fa.mincuadSimplex({ td, vi });\nprint(c);\nr"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var vx = [1, 2.2, 3.3, 4.4, 5.6, 7.7, 8.8];\nvar vy = [1.5, 2.3, 3.5, 4.8, 5.9, 7.9, 9.0];\n[vx, vy].transpose().map(([x, y])=>f(x, y)).round(2)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var trace1 = {\n  x:td[0] , \n  y:td[1] ,\n  z: td[2],\n  mode: \"markers\",\n  marker: {\n    size: 7,\n    color: \"maroon\",\n  },\n  type: \"scatter3d\"\n};",
+              "var[x,y ,[z] ] = getAxes({fun:[f], xmin:0.2, xmax:8.3, dx:0.2, ymin:0.3, ymax:7.2, dy:0.2}).round(2);",
+              "var trace2 = {\n  x,\n  y,\n  z,\n  contours: {\n    x:{show:true, color: \"lightgreen\"},\n    y:{show:true, color: \"lightgreen\"},\n    z:{show:true, color: \"lightgreen\"},\n  },\n  colorscale: \"Earth\",\n  showscale: false,\n  type: \"surface\"\n};",
+              "var layout = {\n  scene: {\n    aspectratio: {x:1, y:1, z:1},\n  }\n};",
+              "plotly([trace1,trace2],layout )"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio13": {
+      "id": "ejercicio13",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nformat longG;\npkg load optim;\nvx = [2.3,4.5,6.7,8.4,9.2,10.1,11.2,12.6,14.5,16.3,17.2,18.1];\nvy = [11,41,90,141,169,205,251,318,421,545,592,655];\nvi = [1.1, 1.2, 1.3];\nfa = @(c,x)c(1)*x.^2+c(2)./x+c(3)*exp(x/8);\nc = nlinfit(vx, vy, fa, vi)\nf = @(x) fa(c,x);\n`;",
+              "`c =\n        2.08383370756789\n       9.674149391358121\n      -2.559105619371679\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nx = 2.3:0.01:18.1;\nplot(vx, vy, \".r\", x, f(x), \"-b\");\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nround(f([2, 4, 7, 9, 11, 12, 13, 14, 16, 17, 18])*1e2)/1e2\n`;",
+              "`\n\nans =\n Columns 1 through 3:\n       9.890000000000001                   31.54       97.34999999999999\n Columns 4 through 6:\n                  161.98                   242.9                  289.41\n Columns 7 through 9:\n                  339.92                   394.4                  515.16\n Columns 10 and 11:\n                  581.37                  651.42\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio14": {
+      "id": "ejercicio14",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nformat longG;\npkg load optim;\nvx = [3.8,1.3,9.2,3.4,1.0,5.1,5.7,9.0,8.0,6.4,6.6,8.1];\nvy = [15,8,124,13,8,27,35,116,84,46,50,87];\nvi = [1.1, 1.2, 1.3];\nfa = @(c,x)c(1)*x.^3+c(2)*sqrt(x)+c(3)./cbrt(x);\nc = nlinfit(vx, vy, fa, vi)\nf = @(x) fa(c,x);\n`;",
+              "`\nc =\n      0.1493198560280096\n       1.472202208388773\n       6.450669434137219\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nx = 1:0.01:9.2;\nplot(vx, vy, \".r\", x, f(x), \"-b\");\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nround(deriv(f,6)*1e4)/1e4\n`;",
+              "`\nans =          16.2298\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio15": {
+      "id": "ejercicio15",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nformat longG;\npkg load optim;\nvx = [1,3,4,5,8,11,14,15,20];\nvy = [1,3,2,2,5,4,6,6,7];\nvi = [1.1, 1.2, 1.3];\nfa = @(c,x)c(1)*log(x)+c(2)*sin(x)-c(3)*cos(x);\nc = nlinfit(vx, vy, fa, vi)\nf = @(x) fa(c,x);\n`;",
+              "`\nc =\n       1.980988327359078\n       1.014435468928723\n      0.2368989870709431\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nx = 1:0.01:20;\nplot(vx, vy, \".r\", x, f(x),\"-b\");\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nround(fzero(f,1.1)*1e5)/1e5;\n`;",
+              "`\nans =          0.76472\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio16": {
+      "id": "ejercicio16",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nformat longG;\npkg load optim;\nvx = [1,4,7,10,12,15,16,18,22,23];\nvy = [9.3,23.4,34.7,45.2,52,61.9,65.2,71.8,84.7,87.9];\nvi = [1.1, 1.2, 1.3];\nfa = @(c,x)c(1)*x+c(2)*log10(x)+c(3)*nthroot(x,5);\nc = nlinfit(vx, vy, fa, vi)\nf = @(x) fa(c,x);\n`;",
+              "`\nc =\n       3.003159895798895\n       5.176803672003129\n       6.291133162616288\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nx = 1:0.01:23;\nplot(vx, vy, \".r\", x, f(x), \"-b\");\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nround(rref([1,4,6,2,f(2); 2,3,1,5,f(3); 3,1,4,7,f(4); 4,2,5,6,f(5)])(:,5)'*1e2)/1e2;\n`;",
+              "`\nans =\n Columns 1 through 3:\n                     3.4                    1.61                    0.33\n Column 4:\n                    1.47\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio17": {
+      "id": "ejercicio17",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nformat longG;\npkg load optim;\nvx = [1,3,4,6,7,9,8,10,11,12];\nvy = [6,94,190,461,598,705,693,577,245,-362];\nvi = [1.1, 1.2, 1.3, 1.4];\nfa = @(c,x)c(1)+c(2)*x.^2.3+c(3)*x.^3.1+c(4)*x.^4.2;\nc = nlinfit(vx, vy, fa, vi)\nf = @(x) fa(c,x);\n`;",
+              "`\nc =\n      0.2429816251736757\n       3.207712638298924\n       2.438823303444802\n     -0.1977254519061921\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nx = 1:0.01:12;\nplot(vx, vy, \".r\", x, f(x), \"-b\");\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nround(fzero(f,11.7)*1e2)/1e2;\n`;",
+              "`\nans =            11.47\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nround(roots([1,2,0,-3,5,f(7)])*1e1)/1e1;\n`;",
+              "`\nans =\n                      -4 +                      0i\n                    -1.6 +                    3.3i\n                    -1.6 -                    3.3i\n                     2.6 +                    2.1i\n                     2.6 -                    2.1i\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio18": {
+      "id": "ejercicio18",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nfrom scipy.optimize import curve_fit\nimport matplotlib.pyplot as plt\nimport numpy as np\nvx = np.array([2.3,4.5,6.7,8.4,9.2,10.1,11.2,12.6,14.5,16.3,17.2,18.1])\nvy = np.array([11,41,90,141,169,205,251,318,421,545,592,655])\nvi = np.array([1.1, 1.2, 1.3])\nfa = lambda x, a, b, c: a*x**2+b/x+c*np.exp(x/8)\nvc, e = curve_fit(fa, vx, vy, vi)\na, b, c = vc\nprint(a, b, c)\nf = lambda x: fa(x, a, b, c)\n`;",
+              "`\n2.083842075658516 9.67526188951258 -2.5593971856319033\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nx = np.arange(2.3, 18.1, 0.01)\nplt.plot(vx, vy, \".r\")\nplt.plot(x, f(x), \"-b\")\nplt.show()\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nprint(f(np.array([2, 4, 7, 9, 11, 12, 13, 14, 16, 17, 18])).round(2))\n`;",
+              "`\n[  9.89  31.54  97.35 161.98 242.9  289.41 339.92 394.4  515.16 581.37\n 651.42]\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio19": {
+      "id": "ejercicio19",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nfrom scipy.optimize import curve_fit\nimport matplotlib.pyplot as plt\nimport numpy as np\nvx = np.array([3.8,1.3,9.2,3.4,1.0,5.1,5.7,9.0,8.0,6.4,6.6,8.1])\nvy = np.array([15,8,124,13,8,27,35,116,84,46,50,87])\nvi = np.array([1.1, 1.2, 1.3])\nfa = lambda x, a, b, c: a*x**3+b*np.sqrt(x)+c/np.cbrt(x)\nvc, e = curve_fit(fa, vx, vy, vi)\na, b, c = vc\nprint(a, b, c)\nf = lambda x: fa(x, a, b, c)\n`;",
+              "`\n0.14931985591458904 1.472202244949302 6.450669351584162\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nx = np.arange(1, 9.2, 0.01)\nplt.plot(vx, vy, \".r\")\nplt.plot(x, f(x), \"-b\")\nplt.show()\ndf1 = lambda f,x,h=1e-6:(f(x+h)-f(x-h))/(2*h)\nprint(round(df1(f, 6),4))\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\n\ndf1 = lambda f,x,h=1e-6:(f(x+h)-f(x-h))/(2*h)\nprint(round(df1(f, 6),4))\n`;",
+              "`\n16.2298\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio20": {
+      "id": "ejercicio20",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nfrom scipy.optimize import curve_fit, newton\nimport matplotlib.pyplot as plt\nimport numpy as np\nvx = np.array([1,3,4,5,8,11,14,15,20])\nvy = np.array([1,3,2,2,5,4,6,6,7])\nvi = np.array([1.1, 1.2, 1.3])\nfa = lambda x, a, b, c: a*np.log(x)+b*np.sin(x)-c*np.cos(x)\nvc, e = curve_fit(fa, vx, vy, vi)\na, b, c = vc\nprint(a, b, c)\nf = lambda x: fa(x, a, b, c)\n`;",
+              "`\n1.9809886139850403 1.0144349581396876 0.23689818638528107\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nx = np.arange(1, 20, 0.01)\nplt.plot(vx, vy, \".r\")\nplt.plot(x, f(x), \"-b\")\nplt.show()\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nprint(round(newton(f, 1.1),5))\n`;",
+              "`\n0.76472\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio21": {
+      "id": "ejercicio21",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom scipy.optimize import curve_fit\nvx = np.array([1,4,7,10,12,15,16,18,22,23])\nvy = np.array([9.3,23.4,34.7,45.2,52,61.9,65.2,71.8,84.7,87.9])\nvi = np.array([1.1, 1.2, 1.3])\nfa = lambda x, a, b, c: a*x+b*np.log10(x)+c*x**(1/5)\nvc, e = curve_fit(fa, vx, vy, vi)\na, b, c = vc\nf = lambda x: fa(x, a, b, c)\nprint(a, b, c)\n`;",
+              "`\n3.0031599009105703 5.176803540511366 6.291133204126633\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nx = np.arange(1, 23, 0.01)\nplt.plot(vx, vy, \".r\")\nplt.plot(x, f(x), \"-b\")\nplt.show()\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nA = np.array([[1,4,6,2],[2,3,1,5],[3,1,4,7],[4,2,5,6]])\nb = np.array([f(2), f(3), f(4), f(5)])\nprint(np.linalg.solve(A, b).round(2))\n`;",
+              "`\n[3.4  1.61 0.33 1.47]\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio22": {
+      "id": "ejercicio22",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nfrom scipy.optimize import curve_fit, newton\nimport matplotlib.pyplot as plt\nimport numpy as np\nvx = np.array([1,3,4,6,7,9,8,10,11,12])\nvvy = np.array([6,94,190,461,598,705,693,577,245,-362])\nvi = np.array([1.1, 1.2, 1.3, 1.4])\nfa = lambda x, a, b, c, d: a+b*x**2.3+c*x**3.1+d*x**4.2\nvc, e = curve_fit(fa, vx, vy, vi)\na, b, c, d = vc\nprint(a, b, c, d)\nf = lambda x: fa(x, a, b, c, d)\n`;",
+              "`\n0.24295337055522204 3.207715421072189 2.4388226281517182 -0.19772543183066868\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nx = np.arange(1, 12, 0.01)\nplt.plot(vx, vy, \".r\")\nplt.plot(x, f(x), \"-b\")\nplt.show()\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nprint(round(newton(f, 11.7),2))\n`;",
+              "`\n11.47\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nprint(np.roots([1,2,0,-3,5,f(7)]).round(1))\n`;",
+              "`\n[-4. +0.j  -1.6+3.3j -1.6-3.3j  2.6+2.1j  2.6-2.1j]\n`;"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
