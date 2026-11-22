@@ -19,7 +19,7 @@
     // =========================================================================
     const CONFIG = {
         GITHUB_USER: 'mael-sysm',
-        GITHUB_REPO: 'cap',
+        GITHUB_REPO: 'DEF',
         GITHUB_BRANCH: 'main',
         MAX_INTENTOS: 15,
         EXTRA_SEGUNDOS_DEFENSA: 60,
