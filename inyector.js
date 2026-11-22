@@ -557,7 +557,7 @@
         }
     };
 
-    const limpiarComandosProfesor = t => t.replace(/_\^/g, '').replace(/_\$/g, '');
+    const limpiarComandosProfesor = t => resolverComodines(t);
 
     function obtenerPreguntasEjercicio(ej) {
         const m = /^ejercicio(\d+)$/.exec(ej.id || '');
@@ -699,10 +699,61 @@
     // =========================================================================
     // 11. DIAGRAMAS GOJS
     // =========================================================================
+    // Comandos del profesor: todo lo que empieza con "_" es una pieza de patrón (regex).
+    // Se convierte en un texto de muestra que cumple el patrón.
+    const MUESTRA_CLASE = { d: '1', D: 'a', w: 'a', W: '-', s: ' ', S: 'a' };
+
+    function muestraDeClase(negada, contenido) {
+        if (negada) return ['a', '1', 'x'].find(c => !contenido.includes(c)) || 'a';
+        const esc = /^\\([dDwWsS])/.exec(contenido);
+        if (esc) return MUESTRA_CLASE[esc[1]];
+        return contenido[0] || 'a';
+    }
+
+    /** _\d  _[0-9]  _.  _\.  seguidos o no de _+ _* _? _{n} → texto concreto que cumple el patrón. */
+    function resolverTokens(t) {
+        let salida = '';
+        let i = 0;
+        while (i < t.length) {
+            if (t[i] !== '_') { salida += t[i++]; continue; }
+            const resto = t.slice(i + 1);
+            let muestra = null, largo = 0, m;
+
+            if ((m = /^\\([dDwWsS])/.exec(resto))) { muestra = MUESTRA_CLASE[m[1]]; largo = 2; }
+            else if ((m = /^\\([^a-zA-Z0-9])/.exec(resto))) { muestra = m[1]; largo = 2; }
+            else if ((m = /^\[(\^?)([^\]]*)\]/.exec(resto))) { muestra = muestraDeClase(!!m[1], m[2]); largo = m[0].length; }
+            else if (resto[0] === '.') { muestra = 'a'; largo = 1; }
+            else if (/^[+*?]/.test(resto)) { i += 2; continue; }          // cuantificador suelto: se descarta
+
+            if (muestra === null) { salida += t[i++]; continue; }          // "_" normal (ej. x_1)
+
+            i += 1 + largo;
+            let veces = 1;
+            const q = /^_(?:[+*?]|\{(\d+)(?:,\d*)?_?\})/.exec(t.slice(i));
+            if (q) { if (q[1] !== undefined) veces = parseInt(q[1], 10); i += q[0].length; }
+            salida += muestra.repeat(veces);
+        }
+        return salida;
+    }
+
+    /** Quita anclas, elige la 1.ª alternativa de _( A _| B _) y resuelve los tokens. */
+    function resolverComodines(texto) {
+        if (typeof texto !== 'string' || !texto.includes('_')) return texto;
+        let t = texto;
+        const reGrupo = /_\(((?:(?!_\()[\s\S])*?)_\)/g;
+        for (let n = 0, previo; n < 10 && t !== previo; n++) {
+            previo = t;
+            t = t.replace(reGrupo, (m, inner) => resolverTokens(inner.split('_|')[0]).replace(/_/g, ''));
+        }
+        t = t.replace(/_\^|_\$/g, '');
+        if (t.includes('_|')) t = t.split('_|')[0];
+        return resolverTokens(t);
+    }
+
     function limpiarComodines(t) {
-        if (typeof t !== 'string' || !t.includes('_(')) return t;
-        return t.replace(/_\(([\s\S]*?)_\)/g, (m, inner) => inner.split('_|')[0].replace(/_/g, ''))
-                .replace(/[ \t]{2,}/g, ' ').trim();
+        if (typeof t !== 'string' || !t.includes('_')) return t;
+        const r = resolverComodines(t);
+        return r === t ? t : r.replace(/[ \t]{2,}/g, ' ').trim();
     }
 
     function extraerModeloGoJS(texto) {
