@@ -1,0 +1,313 @@
+{
+  "materia": "mat205",
+  "capitulo": 1,
+  "resumen": {
+    "ids_ejercicios": [
+      "ejercicio2",
+      "ejercicio3",
+      "ejercicio7",
+      "ejercicio8",
+      "ejercicio9",
+      "ejercicio10",
+      "ejercicio11",
+      "ejercicio12",
+      "ejercicio13",
+      "ejercicio14",
+      "ejercicio15",
+      "ejercicio16",
+      "ejercicio17",
+      "ejercicio18"
+    ],
+    "variantes_por_ejercicio": {
+      "ejercicio2": [
+        "0"
+      ],
+      "ejercicio3": [
+        "5"
+      ],
+      "ejercicio7": [
+        "8"
+      ],
+      "ejercicio8": [
+        "3"
+      ],
+      "ejercicio9": [
+        "2"
+      ],
+      "ejercicio10": [
+        "1"
+      ],
+      "ejercicio11": [
+        "1"
+      ],
+      "ejercicio12": [
+        "3"
+      ],
+      "ejercicio13": [
+        "0"
+      ],
+      "ejercicio14": [
+        "2"
+      ],
+      "ejercicio15": [
+        "2"
+      ],
+      "ejercicio16": [
+        "1"
+      ],
+      "ejercicio17": [
+        "2"
+      ],
+      "ejercicio18": [
+        "0"
+      ]
+    }
+  },
+  "ejercicios": {
+    "ejercicio2": {
+      "id": "ejercicio2",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "(5-3.2+4*6.8)/(7/2+12/8)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio3": {
+      "id": "ejercicio3",
+      "variantes_guardadas": [
+        "5"
+      ],
+      "enunciados": {
+        "5": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "((18-7+3)/(3-5+4))/(7+(3**2.262+11)/(12+3)+(2**3.33-2)/(18-3*4))"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio7": {
+      "id": "ejercicio7",
+      "variantes_guardadas": [
+        "8"
+      ],
+      "enunciados": {
+        "8": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "(Math.tan(47.1)*Math.cos(8.3)*Math.sin(5.9))/(31.2+1.8**1.4+Math.abs(-2*Math.PI))"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio8": {
+      "id": "ejercicio8",
+      "variantes_guardadas": [
+        "3"
+      ],
+      "enunciados": {
+        "3": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Math.floor((5.9**8.3-4.7**8.2+Math.exp(9.92))/Math.sqrt(5.91+6**6.32))"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio9": {
+      "id": "ejercicio9",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Math.log(4.921)*Math.exp(6.2154)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio10": {
+      "id": "ejercicio10",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Math.acos((Math.sqrt(5.2)+6.67)/(10+3.45))"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio11": {
+      "id": "ejercicio11",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Math.log((4.7**5.7-3.8**6.7+Math.exp(8.65))/Math.sqrt(7.32+2**0.85))"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio12": {
+      "id": "ejercicio12",
+      "variantes_guardadas": [
+        "3"
+      ],
+      "enunciados": {
+        "3": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "(3*Math.asin(0.75)+6*Math.acos(0.69)+Math.atan(6.32))/(3*Math.exp(6/5)*Math.PI)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio13": {
+      "id": "ejercicio13",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "function fun1(x){\n  return x**3+2*x**2+3*x+4;\n}",
+              "fun1(2)",
+              "fun1(5)",
+              "fun1(7)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio14": {
+      "id": "ejercicio14",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var rcuarta =  function (x){\n  return x**(1/4);\n}",
+              "rcuarta(1.7)",
+              "rcuarta(4.5)",
+              "rcuarta(12.3)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio15": {
+      "id": "ejercicio15",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var log7= function (x){\n  return Math.log(x)/Math.log(7);\n}",
+              "log7(5.7)",
+              "log7(12.3)",
+              "log7(31.2)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio16": {
+      "id": "ejercicio16",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "function potn(x,n){\n  return x**n;\n}",
+              "potn(5.7,5)",
+              "potn(12.3,7)",
+              "potn(31.2,9)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio17": {
+      "id": "ejercicio17",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var fx=x=>{\n  const y=(119+2*x+3*x**3)/(7*x**2);\n  return Math.exp((x-y)/2)+x**2*y**2-60*y-20;\n}",
+              "fx(1)",
+              "fx(2.5)",
+              "fx(4.2)",
+              "fx(6.7)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio18": {
+      "id": "ejercicio18",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "function fp1(p,{l=120,I=170.6,E=3e6,y=0.066,A=32,g=386}={}){\n  const a=Math.sqrt((E*I*g)/(A*y));\n  const k=Math.sqrt(p/a);\n  return Math.cos(k*l)*Math.cosh(k*l)+1;\n}",
+              "fp1(21)",
+              "fp1(47)",
+              "fp1(55)",
+              "fp1(67)",
+              "fp1(75)"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
