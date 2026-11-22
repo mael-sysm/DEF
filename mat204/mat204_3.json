@@ -1,0 +1,212 @@
+{
+  "materia": "mat204",
+  "capitulo": 3,
+  "resumen": {
+    "ids_ejercicios": [
+      "ejercicio1",
+      "ejercicio2",
+      "ejercicio3",
+      "ejercicio4",
+      "ejercicio5",
+      "ejercicio6",
+      "ejercicio7",
+      "ejercicio8",
+      "ejercicio9",
+      "ejercicio10"
+    ],
+    "variantes_por_ejercicio": {
+      "ejercicio1": [
+        "3"
+      ],
+      "ejercicio2": [
+        "4"
+      ],
+      "ejercicio3": [
+        "2"
+      ],
+      "ejercicio4": [
+        "0"
+      ],
+      "ejercicio5": [
+        "0"
+      ],
+      "ejercicio6": [
+        "1"
+      ],
+      "ejercicio7": [
+        "0"
+      ],
+      "ejercicio8": [
+        "1"
+      ],
+      "ejercicio9": [
+        "2"
+      ],
+      "ejercicio10": [
+        "1"
+      ]
+    }
+  },
+  "ejercicios": {
+    "ejercicio1": {
+      "id": "ejercicio1",
+      "variantes_guardadas": [
+        "3"
+      ],
+      "enunciados": {
+        "3": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var s1 = 'Datos de';\nvar s2 = 'tipo cadena';\ns1+' '+s2"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio2": {
+      "id": "ejercicio2",
+      "variantes_guardadas": [
+        "4"
+      ],
+      "enunciados": {
+        "4": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`El valor de 3.82 elevado a 2.16 es: ${3.82**2.16}`"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio3": {
+      "id": "ejercicio3",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var x = 0.35;\nvar r = Math.log10(x);\n`El logaritmo en base 10 de ${x}, es: ${r}`"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio4": {
+      "id": "ejercicio4",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var x = 7.12;\nvar r = Math.nthroot(x, 7);\n`La raíz séptima de ${x}, es: ${r}`"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio5": {
+      "id": "ejercicio5",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var n = prompt(\"Escriba un número válido\");\nvar r = Math.log(n);\nalert(`El logaritmo natural de ${n} es: ${r}`);"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio6": {
+      "id": "ejercicio6",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var r = prompt(\"Escriba un número válido\");\nvar a = Math.PI*r**2;\nalert(`El área de un círculo de radio ${r} es: ${a}`);"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio7": {
+      "id": "ejercicio7",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var a = false, b = true, c = !(3<7), d = 23<=50;\nprint(a, b, c, d);\nprint(typeof a, typeof b, typeof c, typeof d);"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio8": {
+      "id": "ejercicio8",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var x = [2, 5, 7, 8, 9];\nvar y = [\"e\", \"f\", \"g\", \"k\", \"m\"];\nprint(x, y);\nprint(x.constructor.name, y.constructor.name);"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio9": {
+      "id": "ejercicio9",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var v = [2, 6, 11, 14, 22, 33];\nprint(v[0]+v[4]);\nprint(Math.hypot(v[1],v[5]));\nprint(Math.exp(v[2]+v[3]));"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio10": {
+      "id": "ejercicio10",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var x = [2, 5, 7, 8, 9];\nvar p = x[0] * x[1] * x[2] * x[3] * x[4];\n`El producto de los elementos de [${x}], es: ${p}`"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
