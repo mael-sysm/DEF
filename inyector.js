@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Inyector Maestro V37
 // @namespace    http://tampermonkey.net/
-// @version      37.0
-// @description  Campos y opciones desde el objeto capitulo; calculadoras y diagramas desde el JSON (GitHub/Local).
+// @version      37.1
+// @description  Campos y opciones desde el objeto capitulo; calculadoras y diagramas desde el JSON (GitHub).
 // @author       mercz d
 // @match        https://cursosabiertos.usfx.bo/materias/*/capitulos/*
 // @grant        none
@@ -408,6 +408,14 @@
             .map(Number)
             .sort((a, b) => a - b);
         return nums.length ? nums[0] : null;
+    }
+
+    /** Calculadoras de la variante EXACTA (sin caer en otra); null si no hay. */
+    function calculadorasExactas(entry, variante) {
+        if (!entry) return null;
+        const clave = (variante === null || variante === undefined) ? 'default' : String(variante);
+        const lista = entry.enunciados[clave];
+        return Array.isArray(lista) && lista.length ? lista : null;
     }
 
     /** Calculadoras guardadas para una variante (o las "default"); null si no hay. */
@@ -841,8 +849,8 @@
             fontWeight: '500', cursor: 'pointer', outline: 'none'
         }, { title: 'Modo de inyección' });
 
-        const valores = ['no_iniciados', 'iniciados', 'sin_corregir', 'todos'];
-        const textos = ['Solo no iniciados', 'Solo iniciados (<100)', 'Sin corregir (en curso)', 'Todos'];
+        const valores = ['no_iniciados', 'sin_forzar', 'iniciados', 'sin_corregir', 'todos'];
+        const textos = ['Solo no iniciados', 'No iniciados (sin forzar)', 'Solo iniciados (<100)', 'Sin corregir (en curso)', 'Todos'];
         valores.forEach((v, i) => sel.appendChild(crearElemento('option', {}, { value: v, textContent: textos[i] })));
         return sel;
     }
@@ -854,13 +862,6 @@
             border: 'none', borderRadius: '50%', cursor: 'pointer',
             boxShadow: '0 2px 8px rgba(37, 99, 235, 0.4)', transition: 'all 0.2s ease', padding: '0'
         }, { innerHTML: ICONO_DESCARGA });
-    }
-
-    function crearBotonLocal() {
-        return crearElemento('button', {
-            padding: '6px 12px', background: '#334155', color: 'white', border: 'none',
-            borderRadius: '999px', cursor: 'pointer', fontSize: '11px', fontWeight: '600'
-        }, { textContent: 'Local' });
     }
 
     function crearBotonCerrar() {
@@ -888,11 +889,6 @@
         });
     }
 
-    function crearInputArchivo() {
-        return crearElemento('input', { display: 'none' },
-            { className: 'tm-inyectado', type: 'file', accept: '.json' });
-    }
-
     function construirUI() {
         const meta = obtenerMetadatosCapitulo();
         const etiqueta = meta ? `${meta.materia.toUpperCase()} · Cap ${meta.num}` : 'V37';
@@ -906,18 +902,15 @@
         ui.contadorDefensa = crearContadorDefensa();
         ui.selectModo = crearSelectorModo();
         ui.btnGitHub = crearBotonGitHub();
-        ui.btnLocal = crearBotonLocal();
         ui.btnCerrar = crearBotonCerrar();
         ui.btnPestana = crearPestana();
-        ui.inputFile = crearInputArchivo();
 
         const fila = crearElemento('div', { display: 'flex', alignItems: 'center', gap: '6px' });
-        fila.append(ui.selectModo, ui.btnGitHub, ui.btnLocal, ui.btnCerrar);
+        fila.append(ui.selectModo, ui.btnGitHub, ui.btnCerrar);
         ui.panel.append(crearSeccionInfo(etiqueta), ui.contadorDefensa, fila);
         raiz.append(ui.panel, ui.btnPestana);
 
         document.body.appendChild(raiz);
-        document.body.appendChild(ui.inputFile);
     }
 
     function alternarMenu() {
@@ -934,7 +927,6 @@
 
     function bloquearUI() {
         ui.btnGitHub.disabled = true;
-        ui.btnLocal.disabled = true;
         ui.selectModo.disabled = true;
         ui.btnGitHub.style.opacity = '0.7';
         mostrarProgreso('...');
@@ -944,7 +936,6 @@
         desactivarEscudoFoco();
         if (estado.cancelado) return;
         ui.btnGitHub.disabled = false;
-        ui.btnLocal.disabled = false;
         ui.selectModo.disabled = false;
         ui.btnGitHub.innerHTML = ICONO_DESCARGA;
         ui.btnGitHub.style.opacity = '1';
@@ -1001,7 +992,7 @@
     // =========================================================================
     function debeProcesarEjercicio(modo, ej) {
         const b = obtenerEstadoBotones(ej);
-        if (modo === 'no_iniciados') return !b.repetirVisible && b.generarVisible;
+        if (modo === 'no_iniciados' || modo === 'sin_forzar') return !b.repetirVisible && b.generarVisible;
         if (modo === 'iniciados') return b.repetirVisible && obtenerNotaEjercicio(ej) < 100;
         return b.generarVisible || b.repetirVisible;
     }
@@ -1034,9 +1025,27 @@
         return false;
     }
 
+    /**
+     * Sin forzar: genera con el azar de la página. Si hay datos para la variante que salió, inyecta;
+     * si no, solo corrige (sin reemplazar nada) y pasa al siguiente.
+     */
+    async function procesarEjercicioAzar(datos, ej) {
+        await iniciarOReiniciar(ej, 0, null);
+        if (estado.cancelado) return false;
+
+        const entry = buscarEjercicioEmisor(datos, ej);
+        const calcs = calculadorasExactas(entry, varianteDe(ej));
+        const sinDatos = !calcs && necesitaDocumento(ej);
+
+        if (!sinDatos) await rellenarContenidoEjercicio(ej, calcs);
+        await clickCorregir(ej);
+        return sinDatos ? 'corregido' : 'inyectado';
+    }
+
     async function procesarModoMasivo(datos, modo) {
         const ejercicios = Array.from(document.querySelectorAll('div.ejercicio[id]'));
-        let procesados = 0, omitidos = 0;
+        const sinForzar = modo === 'sin_forzar';
+        let procesados = 0, omitidos = 0, soloCorregidos = 0;
 
         for (let i = 0; i < ejercicios.length; i++) {
             if (estado.cancelado) return;
@@ -1046,10 +1055,18 @@
             if (!debeProcesarEjercicio(modo, ej)) { omitidos++; continue; }
 
             mostrarProgreso(i + 1);
-            if (await procesarEjercicio(datos, ej)) procesados++;
+            if (sinForzar) {
+                const r = await procesarEjercicioAzar(datos, ej);
+                if (r) procesados++;
+                if (r === 'corregido') soloCorregidos++;
+            } else if (await procesarEjercicio(datos, ej)) {
+                procesados++;
+            }
         }
 
-        if (procesados === 0 && omitidos > 0) showToast(`No se inyectó nada: ${omitidos} omitidos por filtros.`, 'info');
+        if (sinForzar && procesados > 0) {
+            showToast(`Listo: ${procesados - soloCorregidos} inyectados, ${soloCorregidos} solo corregidos (variante sin datos).`, 'info');
+        } else if (procesados === 0 && omitidos > 0) showToast(`No se inyectó nada: ${omitidos} omitidos por filtros.`, 'info');
         else if (procesados === 0) showToast('Ningún ejercicio coincide con el JSON.', 'warning');
     }
 
@@ -1094,23 +1111,6 @@
         }
     }
 
-    function alClickLocal() {
-        if (!ui.btnLocal.disabled) ui.inputFile.click();
-    }
-
-    function alElegirArchivo() {
-        const file = ui.inputFile.files[0];
-        if (!file) return;
-
-        bloquearUI();
-        const reader = new FileReader();
-        reader.onload = async e => {
-            ui.inputFile.value = '';
-            await ejecutarInyeccionConJSON(e.target.result);
-        };
-        reader.readAsText(file);
-    }
-
     // =========================================================================
     // 19. INICIALIZACIÓN
     // =========================================================================
@@ -1121,8 +1121,6 @@
         ui.btnCerrar.addEventListener('click', limpiarRastro);
         ui.btnPestana.addEventListener('click', alternarMenu);
         ui.btnGitHub.addEventListener('click', alClickGitHub);
-        ui.btnLocal.addEventListener('click', alClickLocal);
-        ui.inputFile.addEventListener('change', alElegirArchivo);
     }
 
     function iniciar() {
