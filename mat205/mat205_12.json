@@ -1,0 +1,819 @@
+{
+  "materia": "mat205",
+  "capitulo": 12,
+  "resumen": {
+    "ids_ejercicios": [
+      "ejercicio1",
+      "ejercicio2",
+      "ejercicio3",
+      "ejercicio4",
+      "ejercicio5",
+      "ejercicio6",
+      "ejercicio7",
+      "ejercicio8",
+      "ejercicio9",
+      "ejercicio10",
+      "ejercicio11",
+      "ejercicio12",
+      "ejercicio13",
+      "ejercicio14",
+      "ejercicio15",
+      "ejercicio16",
+      "ejercicio17",
+      "ejercicio18",
+      "ejercicio19",
+      "ejercicio20",
+      "ejercicio21",
+      "ejercicio22",
+      "ejercicio23"
+    ],
+    "variantes_por_ejercicio": {
+      "ejercicio1": [
+        "1"
+      ],
+      "ejercicio2": [
+        "1"
+      ],
+      "ejercicio3": [
+        "1"
+      ],
+      "ejercicio4": [
+        "1"
+      ],
+      "ejercicio5": [
+        "2"
+      ],
+      "ejercicio6": [
+        "0"
+      ],
+      "ejercicio7": [
+        "1"
+      ],
+      "ejercicio8": [
+        "1"
+      ],
+      "ejercicio9": [
+        "0"
+      ],
+      "ejercicio10": [
+        "0"
+      ],
+      "ejercicio11": [
+        "2"
+      ],
+      "ejercicio12": [
+        "2"
+      ],
+      "ejercicio13": [
+        "1"
+      ],
+      "ejercicio14": [
+        "2"
+      ],
+      "ejercicio15": [
+        "0"
+      ],
+      "ejercicio16": [
+        "2"
+      ],
+      "ejercicio17": [
+        "2"
+      ],
+      "ejercicio18": [
+        "0"
+      ],
+      "ejercicio19": [
+        "1"
+      ],
+      "ejercicio20": [
+        "1"
+      ],
+      "ejercicio21": [
+        "1"
+      ],
+      "ejercicio22": [
+        "0"
+      ],
+      "ejercicio23": [
+        "1"
+      ]
+    }
+  },
+  "ejercicios": {
+    "ejercicio1": {
+      "id": "ejercicio1",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var f=(x,y)=>4*Math.exp(0.7*x)-0.5*y;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var fy=f.euler({xi:0,xf:2,yi:2})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:fy,xi:0,xf:2})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[1.2,2].map(fy).round(1)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio2": {
+      "id": "ejercicio2",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var f=(t,[y,y1,y2])=>t+2.1*y+t*y1-t*y2;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var fy=f.euler({xi:0,xf:1.5,yi:[0,0,0]});"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:fy,xi:0,xf:1.5})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[0.2,1.4].map(fy).round(5)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio3": {
+      "id": "ejercicio3",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var f=(t,[x,y])=>[2.1*x+3*y, 2*x+1.2*y];"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var [fx,fy]=f.euler({xi:0,xf:1.3,yi:[2.7,2]})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:fx,xi:0,xf:1.3})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:fy,xi:0,xf:1.3})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[0.2,1.2].map(fx).round(3)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[0.2,1.2].map(fy).round(3)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio4": {
+      "id": "ejercicio4",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var f=(x,y)=>6*x/y-2*x*y;\nvar fy=f.euler({xi:0,xf:2,yi:2})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var r=[0,1,2].map(fy).round(3);r"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[[4,1,-2],\n [1,-3,4],\n [-2,5,-1]].crout([r[0],r[1],r[2]]).round(3)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio5": {
+      "id": "ejercicio5",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var f=(t,y)=>y**1.9+t**2.1;\nvar fy=f.euler({xi:1,xf:1.4,yi:2});"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "fy.trapecio({a:1.1,b:1.4,n:300}).round(4)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio6": {
+      "id": "ejercicio6",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var f=(t,[x,x1])=>16*Math.cos(8*t)-64*x;\nvar fx=f.euler({xi:0,xf:0.8,yi:[0,0]});"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var r=[0.8,0.2].map(fx).round(3);r"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var fe=([x,y])=>[\n  1.2*x**1.2+y**1.1-100*r[0],\n  3*x**2-1.5*y**1.7-10*r[1]\n];\nfe.newtonnl({vi:[1,2],err:7}).v.round(3)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio7": {
+      "id": "ejercicio7",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var f=(t,[u,v,w])=>[\n  2*v-2.1*w-t**2+2*t**1.5-1.3*t**0.2-7,\n  -3*w+4*t**1.5+2*t-25,\n  3*u-1.9*v+t**2-t**1.2+1.5*t**0.5-9\n];\nvar [fu,fv,fw]=f.euler({xi:0.3,xf:0.5,yi:[3,-4,-7]});",
+              "var f=(t,[u,v,w])=>[\n  2*v-2.1*w-t**2+2*t**1.5-1.3*t**0.2-7,\n  -3*w+4*t**1.5+2*t-25,\n  3*u-1.9*v+t**2-t**1.2+1.5*t**0.5-9\n];\nvar [fu,fv,fw]=f.euler({xi:0.3,xf:0.5,yi:[3,-4,-7]});"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var [a,b,c]=[fu(0.5),fv(0.5),fw(0.5)].round(2);[a,b,c]"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[[2,-4,5],\n [2,-5,-4],\n [5,-3,-5]].inv().mul([a,b,c]).round(2)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio8": {
+      "id": "ejercicio8",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var f=(x,y)=>4*Math.exp(0.7*x)-0.5*y;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var fy=f.rungek({xi:0,xf:2,yi:2})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:fy,xi:0,xf:2})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[1.2,2].map(fy).round(1)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio9": {
+      "id": "ejercicio9",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var f=(t,[y,y1,y2])=>t+2*y+t*y1-t*y2;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var fy=f.rungek({xi:0,xf:1.5,yi:[0,0,0]})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:fy,xi:0,xf:1.5})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[0.2,1.4].map(fy).round(4)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio10": {
+      "id": "ejercicio10",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var f=(t,[x,y])=>[2*x+3*y,2*x+y];"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var [fx,fy]=f.rungek({xi:0,xf:1.3,yi:[2.7,2]})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:fx,xi:0,xf:1.3})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:fy,xi:0,xf:1.3})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[0.2 ,1.2].map(fx).round(3)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[0.2 ,1.2].map(fy).round(3)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio11": {
+      "id": "ejercicio11",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var f=(x,y)=>y*(x**2.1-1);\nvar fy=f.rungek({xi:0,xf:2,yi:1})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var r=[0.5,1,1.5,2].map(fy).round(1);r"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var fx = x => r[0]*x**3+r[1]*x**2+r[2]*x+r[3];\nfx.refa({xi:-2,xf:2}).round(4)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio12": {
+      "id": "ejercicio12",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var f=(x,y)=>x**3.1+y**1.9;\nvar fy=f.rungek({xi:0,xf:0.45,yi:2})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var r=[0,0.2,0.3,0.35,0.4,0.45].map(fy).round(2);r"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "r.roots().round(3)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio13": {
+      "id": "ejercicio13",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var f=(t,[q,q1])=>2.1*(23*Math.sin(10*t)-7*q1-50*q);\nvar fq=f.rungek({xi:0,xf:1.2,yi:[0,0]})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "plot({f:fq,xi:0,xf:1.2})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "print(fq.secante({xi:0.4,xf:0.5}).round(5));",
+              "fq.secante({xi:0.7,xf:0.8}).round(5)",
+              "fq.secante({xi:1,xf:1.1}).round(5)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio14": {
+      "id": "ejercicio14",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var f=(t,[x,y])=>[1.2*x*y+t, x-1.1*t];\nvar [fx,fy]=f.rungek({xi:0,xf:1.5,yi:[0,1]})"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var [w,z]=[fy(0.5),fx(1.5)];[w,z]"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var fe=([u,v])=>[\n  u**2.4+v**1.3-u*v-10*w,\n  3*u**2.1-u*v**2.2-v**3-7*z\n];\nfe.descensoa({vi:[3.1,1.9],err:7}).v.round(2)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio15": {
+      "id": "ejercicio15",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var vf = [x => x**2, x => 1/x, x => Math.exp(x/8)];\nvar vx = [2.3, 4.5, 6.7, 8.4, 9.2, 10.1, 11.2, 12.6, 14.5, 16.3, 17.2, 18.1];\nvar vy = [11, 41, 90, 141, 169, 205, 251, 318, 421, 545, 592, 655];\nvar f = vf.mincuad([vx, vy]).f;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var fd = (x, [y, y1, y2]) => 12*x**2 + 12*x + 36 - 2*y1 - y2;\nvar fy = fd.rungek({xi: 5.2, xf: 9.3, yi: [4*f(5.96), 3*f(5.24), 2*f(3.98)]});"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "fy.romberg({a: 6, b: 9.2, err: 9}).round(2)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio16": {
+      "id": "ejercicio16",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nformat shortG;\nf=@(x,y)x.^3.1+y.^1.9;\n[vx,vy]=ode45(f,[0,0.45],2);\npp=spline(vx,vy);\nfy=@(x)ppval(pp,x);\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nr=round(fy([0,0.2,0.3,0.35,0.4,0.45])*1e2)/1e2\n`;",
+              "`\nr =\n            2         3.15         4.36         5.36         6.91          9.6\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nround(roots(r)*1e3)/1e3\n`;",
+              "`\nans =\n        0.626 +       1.159i\n        0.626 -       1.159i\n       -1.391 +           0i\n       -0.718 +       1.213i\n       -0.718 -       1.213i\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio17": {
+      "id": "ejercicio17",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nformat longG;\nf=@(t,q) [q(2); 2*(20*sin(11*t)-7*q(2)-48*q(1))];\n[vx,mr]=ode45(f,[0,1.2],[0,0]);\nvy=mr(:,1);\npp=spline(vx,vy);\nfq=@(x)ppval(pp,x);\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nx=0:0.01:1.2;\nplot(x,fq(x), \"-b\");\ngrid on;\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nround(fzero(fq,[0.4, 0.6])*1e5)/1e5\nround(fzero(fq,[0.6, 0.8])*1e5)/1e5\nround(fzero(fq,[1,1.2])*1e5)/1e5\n`;",
+              "`\nans =          0.43962\nans =          0.72916\nans =          1.01437\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio18": {
+      "id": "ejercicio18",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nformat longG;\nfunction r=f(t,v)\n x=v(1);y=v(2);\nr=[x*y+t; x-t];\nendfunction\n[vt,mr]=ode45(@f,[0,1.5],[0,1]);\nvx=mr(:,1)\nvy=mr(:,2);\nppx=spline(vt,vx);\nfx=@(t)ppval(ppx,t);\nppy=spline(vt,vy);\nfy=@(t)ppval(ppy,t);\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nglobal w;\nglobal z;\nw=fy(0.5);\nz=fx(1.5);\n`;",
+              "`\nw=0.8985833611929371\nz=1.656008096844849\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nfunction r = fe(c)\n    global w;global z;\n    u=c(1); v=c(2); \n    r = [u^2.3+v^1.2-u*v-10*w;\n        3*u^2-u*v^2-v^2.9-7*z];\nendfunction\nround(fsolve(@fe,[3.1,1.9])*1e2)/1e2\n`;",
+              "`\nans =\n                    2.98                    1.79\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio19": {
+      "id": "ejercicio19",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\npkg load optim;\nformat longG;\nvx = [2.4,4.5,6.6,8.4,9.3,10.2,11.1,12.5,14.7,16.1,17.4,18.3];\nvy = [11, 41, 90, 141, 169, 205, 251, 318, 421, 545, 592, 655];\nvi = [1.1, 1.2, 1.3];\nfa = @(c, x) c(1)*x.^2 + c(2)./x + c(3)*exp(x/8);\nc = nlinfit(vx, vy, fa, vi)\nf = @(x) fa(c, x);\n`;",
+              "`\nc =\n       2.061079943682952\n       13.89870581229874\n      -2.514889855073845\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nfd=@(x,y)[y(2);y(3); 12*x.^2+10*x+36-2*y(2)-y(3)];\n[vx,mr]=ode45(fd,[5.2,9.3],[4*f(5.96),3*f(5.24),2*f(3.98)]);\nvy=mr(:,1);\npp=spline(vx,vy);\nfy=@(x)ppval(pp,x);\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nround(integral(fy,6.1,9.1)*1e2)/1e2\n`;",
+              "`\nans =          2770.98\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio20": {
+      "id": "ejercicio20",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nfrom scipy.integrate import solve_ivp\nimport numpy as np\nf=lambda x,y: x**3+1.1*y**2\ns=solve_ivp(f,[0,0.45],[2],dense_output=True,rtol=1e-5)\nfy=lambda x:s.sol(x)[0]\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nr=fy([0,0.2,0.3,0.35,0.4,0.45]).round(2)\nprint(r)\n`;",
+              "`\n[ 2.     3.57   5.89   8.71  16.71 207.3]\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nprint(np.roots(r).round(3))\n`;",
+              "`\n[-2.735+0.j -1.098+2.436j -1.098-2.436j 1.573+1.684j 1.573-1.684j]\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio21": {
+      "id": "ejercicio21",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nfrom scipy.integrate import solve_ivp\nfrom scipy.optimize import newton\nimport numpy as np\nimport matplotlib.pyplot as plt \nimport math\nf=lambda t,q: [q[1], 2.1*(23*math.sin(10*t)-7*q[1]-50*q[0])]\ns=solve_ivp(f,[0,1.2],[0,0],dense_output=True,rtol=1e-5).sol\nfq=lambda x:s(x)[0]\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nx=np.arange(0,1.2,0.01)\nplt.plot(x,fq(x),\"-b\")\nplt.grid(True)\nplt.show()\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nprint(round(newton(fq, 0.47), 5))\nprint(round(newton(fq, 0.77), 5))\nprint(round(newton(fq, 1.1), 5))\n`;",
+              "`\n0.46403\n0.78196\n1.09619\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio22": {
+      "id": "ejercicio22",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nfrom scipy.integrate import solve_ivp\nfrom scipy.optimize import fsolve\ndef f(t,v):\n  x,y=v\n  return[x*y+t,\n         x-t]\ns=solve_ivp(f,[0,1.5],[0,1],dense_output=True,rtol=1e-5).sol\nfx=lambda x:s(x)[0]\nfy=lambda x:s(x)[1]\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nw=fy(0.5)\nz=fx(1.5)\nprint(w,z)\n`;",
+              "`\n0.8985849753116771 1.6559841497212981\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\ndef fe(c):\n  u,v=c\n  return [u**2.3+v**1.2-u*v-10*w, \n          3*u**2-u*v**2-v**2.9-7*z]\nprint(fsolve(fe,[3.1,1.9]).round(2))\n`;",
+              "`\n[2.98 1.79]\n`;"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio23": {
+      "id": "ejercicio23",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nfrom scipy.integrate import solve_ivp\nfrom scipy.optimize import curve_fit\nfrom scipy.integrate import quad\nimport numpy as np\nfa = lambda x, a, b, c: a*x**2 + b/x + c*np.exp(x/8)\nvx = np.array([2.4, 4.5, 6.6, 8.4, 9.3, 10.2, 11.1, 12.5, 14.7, 16.1, 17.4, 18.3])\nvy = np.array([11, 41, 90, 141, 169, 205, 251, 318, 421, 545, 592, 655])\nvi = np.array([1.1, 1.2, 1.3])\n[a, b, c], e = curve_fit(fa, vx, vy, vi)\nprint(a, b, c)\nf = lambda x: fa(x, a, b, c)\n`;",
+              "`\n2.0610886946576006 13.899898970405246 -2.515194611440039\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nfd = lambda x, y: [y[1], y[2], 12*x**2 + 10*x + 36 - 2*y[1] - y[2]]\ns = solve_ivp(fd, [5.2, 9.3], [4*f(5.96), 3*f(5.24), 2*f(3.98)], dense_output=True, rtol=1e-5).sol\nfy = lambda x: s(x)[0]\n`;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`\nprint(round(quad(fy, 6.1, 9.1)[0], 2))\n`;",
+              "`\n2770.97\n`;"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
