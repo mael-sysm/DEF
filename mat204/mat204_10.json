@@ -1,0 +1,823 @@
+{
+  "materia": "mat204",
+  "capitulo": 10,
+  "resumen": {
+    "ids_ejercicios": [
+      "ejercicio1",
+      "ejercicio2",
+      "ejercicio3",
+      "ejercicio4",
+      "ejercicio5",
+      "ejercicio6",
+      "ejercicio7",
+      "ejercicio8",
+      "ejercicio9",
+      "ejercicio10",
+      "ejercicio11",
+      "ejercicio12",
+      "ejercicio13",
+      "ejercicio14",
+      "ejercicio15",
+      "ejercicio16",
+      "ejercicio17",
+      "ejercicio18"
+    ],
+    "variantes_por_ejercicio": {
+      "ejercicio1": [
+        "2"
+      ],
+      "ejercicio2": [
+        "0"
+      ],
+      "ejercicio3": [
+        "0"
+      ],
+      "ejercicio4": [
+        "1"
+      ],
+      "ejercicio5": [
+        "0"
+      ],
+      "ejercicio6": [
+        "0"
+      ],
+      "ejercicio7": [
+        "2"
+      ],
+      "ejercicio8": [
+        "0"
+      ],
+      "ejercicio9": [
+        "1"
+      ],
+      "ejercicio10": [
+        "2"
+      ],
+      "ejercicio11": [
+        "1"
+      ],
+      "ejercicio12": [
+        "1"
+      ],
+      "ejercicio13": [
+        "1"
+      ],
+      "ejercicio14": [
+        "1"
+      ],
+      "ejercicio15": [
+        "1"
+      ],
+      "ejercicio16": [
+        "1"
+      ],
+      "ejercicio17": [
+        "2"
+      ],
+      "ejercicio18": [
+        "1"
+      ]
+    }
+  },
+  "ejercicios": {
+    "ejercicio1": {
+      "id": "ejercicio1",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var a = new Array(4, 6, 8, 10, 12, 14); a"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var b = new Array(\"f\", \"g\", \"h\", \"i\", \"j\"); b"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var c = new Array(); c"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var d = Array.of(71); d"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio2": {
+      "id": "ejercicio2",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Array.from(\"Programación\")"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Array.from({length:7}, (_,i)=>i+1)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Array.from({length:5}, (_,i)=>2*i+2)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Array.from({length:8}, (_,i)=>2*i+1)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Array.from({length:9}, (_,i)=>3*i+2)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio3": {
+      "id": "ejercicio3",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var x = [2, 3,4, 7, 8, 9]; x"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Math.sqrt(x[2])"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Math.log(x[3]+x[4]+x[5])"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "x[2]=30;x"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "x[4]=80;x"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio4": {
+      "id": "ejercicio4",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var v = [1, 4, 5, 8, 11, 12]; v"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Math.cbrt(v[1])"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Math.cos(v[1]+v[3]+v[5])"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v[2]=50;v"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v[4]=110;v"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio5": {
+      "id": "ejercicio5",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var a = [1, 2, 3, 8, 9, 10, 11, 12]; a"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Math.factorial(a[2])"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Math.nthroot(a[1]+a[3]+a[5],5)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "a[2]=30;a"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "a[5]=100;a"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio6": {
+      "id": "ejercicio6",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var x = [20, 3, 4, 5, 6, 7, 80];x"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "x.pop(); x // Quita final"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "x.push(8); x // Añade final"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "x.shift(); x // Quita Princip"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "x.unshift(2); x  // Anade Princip"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio7": {
+      "id": "ejercicio7",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var v = [6, 4, 5, 3, 8, 7, 2];v"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v.sort();v //Ordena alfab "
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v.reverse();v //Invierte Orde"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v.shift();v //Quit Prim"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v.pop();v //Quit Ultim"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio8": {
+      "id": "ejercicio8",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var a = [ 7, 6, 5, 4, 3, 2];a"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "a.push(1);a //Añad final "
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "a.unshift(8);a // Añad Princip"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "a.reverse();a // Inverte Orden"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "a.pop();a //Quit Ultim"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio9": {
+      "id": "ejercicio9",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var b = [4,8,9]; b"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "b.unshift(1, 2, 3);b // Incert Primcip"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "b.push(10, 11);b // Añad final"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "b.splice(4,0,5,6,7);b // Inser n entre N"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "b.reverse();b //Invier Ord"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio10": {
+      "id": "ejercicio10",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var c = [4, 9, 2, 1, 5, 9, 1, 6, 9, 3, 7, 1, 8]; c"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "c.sort((a, b)=> b- a);c //Orden Decen "
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "c.splice(0,2);c // Quit Elem Rep"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "c.splice(9,2);c // Quit Elem Rep"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "c.shift();c // Quit Prim"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "c.join(\"=>\") //Cadena tex",
+              "i"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio11": {
+      "id": "ejercicio11",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var a = [\"u\",\"a\",\"x\",\"v\",\"r\"]; a"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var b =  [\"x\",\"b\",\"s\",\"z\"]; b"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var c =  [\"c\",\"d\",\"x\",\"y\"]; c"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var d = a.concat(b,c); d"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "d.sort().reverse()"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var e = d.slice(); e"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "d.splice(3,2); d"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio12": {
+      "id": "ejercicio12",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[4, 7, 9, 12].log10().toFixed(2)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[5, 12, 3, 9].sqrt().toFixed(3)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[8, 3, 1, 9].sec().toFixed(5)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[3, 9, 2, 6].tanh().toFixed(3)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[6, 9, 12, 32].log(3).toFixed(1)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio13": {
+      "id": "ejercicio13",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[3, 5, 2, 7].log().toFixed(3)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[3, 11, 8, 5].cbrt().toFixed(2)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[9, 2, 3, 6].csc().toFixed(5)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[1, 7, 5, 4].sinh().toFixed(4)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[6, 9, 12, 27].nthroot(5).toFixed(2)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio14": {
+      "id": "ejercicio14",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[ 1, 4, 2, 3].map(Math.exp).toFixed(3)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[2, 10, 7, 4].map(x=>x**2).toFixed(2)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[3, 2, 1, 5].map(Math.cot).toFixed(4)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[2, 6, 4, 1].map(Math.acosh).toFixed(3)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[5, 3, 4, 8].map(x=>x**4).toFixed(1)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio15": {
+      "id": "ejercicio15",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var v = [5, 8, 2, 1, 7, 6, 9]; v"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v.sqrt().round(4)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v.pow(3)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v.nthroot(5).round(2)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v.log(3).round(3)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio16": {
+      "id": "ejercicio16",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var v1 = [].range(1,19,2); v1"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v1.sum()"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v1.reduce((s,e)=>s+e)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var v2 = [].rand(10,15,25).round(); v2"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v1.sub(v2)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v1.add(v2)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio17": {
+      "id": "ejercicio17",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var v1 = [].range(11,31,2); v1"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v1.abs().round(3)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var v2 = [].range(12,32,2); v2"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v1.mul(v2)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v2.div(v1).round(2)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio18": {
+      "id": "ejercicio18",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var v1 = [].rand(6,1,9).round(); v1"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var v2 = [].range(2,7); v2"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "var v3 = [].range(5,15,2); v3"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v1.add(v2).add(v3)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v2.add(v3).mul(v1)"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
