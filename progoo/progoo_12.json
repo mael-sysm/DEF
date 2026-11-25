@@ -1,0 +1,732 @@
+{
+  "materia": "progoo",
+  "capitulo": 12,
+  "resumen": {
+    "ids_ejercicios": [
+      "ejercicio1",
+      "ejercicio2",
+      "ejercicio3",
+      "ejercicio4",
+      "ejercicio5",
+      "ejercicio6",
+      "ejercicio7",
+      "ejercicio8",
+      "ejercicio9",
+      "ejercicio10",
+      "ejercicio11"
+    ],
+    "variantes_por_ejercicio": {
+      "ejercicio1": [
+        "0"
+      ],
+      "ejercicio2": [
+        "0"
+      ],
+      "ejercicio3": [
+        "0"
+      ],
+      "ejercicio4": [
+        "0"
+      ],
+      "ejercicio5": [
+        "0"
+      ],
+      "ejercicio6": [
+        "0"
+      ],
+      "ejercicio7": [
+        "2"
+      ],
+      "ejercicio8": [
+        "1"
+      ],
+      "ejercicio9": [
+        "0"
+      ],
+      "ejercicio10": [
+        "1"
+      ],
+      "ejercicio11": [
+        "1"
+      ]
+    }
+  },
+  "ejercicios": {
+    "ejercicio1": {
+      "id": "ejercicio1",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s = 'El modificador \"i\" hace que la expresión regular ignore la diferencia entre mayúsculas y minúsculas';"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/c[aei]/)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/c[aei]/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "[...s.matchAll(/c[aei]/g)]"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/[cr][ae]/)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/[cr][ae]/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/s[^aeiou]/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/g[l-v]/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/di|re|la/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/m./g)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio2": {
+      "id": "ejercicio2",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s = 'El modificador \"i\" hace que la expresión regular ignore la diferencia entre mayúsculas y minúsculas';"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/d[io]/)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/d[io]/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/[ms][aio]/)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/[ms][aio]/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/[gps][^aeiou]/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/[cn][o-v]/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/as|re|cu/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/l../g)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio3": {
+      "id": "ejercicio3",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s = 'El modificador \"g\" hace que la búsqueda sea global, es decir que se ubican todas las coincidencias de la expresión regular.';"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\w+/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\W+/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\S+/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\s+/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/[a-záéíóúñ]+/gi)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\B[a-záéíóúñ]+\\B/gi)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/[a-záéíóúñ]*a[a-záéíóúñ]*/gi)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/[a-záéíóúñ]*[rs](?=[\\s.])/gi)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/[a-záéíóúñ]+\\W(?=\\s)/gi)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\b[^aeiou\\s][a-záéíóúñ]+/gi)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/[a-záéíóúñ]*[aeiou](?=\\s)/gi)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/[a-záéíóúñ]+(?![\\s\\wáéíóú])/gi)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio4": {
+      "id": "ejercicio4",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s = \"Temperatura inicial: 34.52 °C.\\nTemperatura intermedia: 178.37 °C.\\nTemperatura en el proceso: 198.34 °C.\\nTemperatura final: 120.48 °C.\";\ns"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/^\\w+/gm)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\S+$/gm)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\d+/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\d+\\.\\d+/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\b\\w{7}\\b/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\b\\w{2,5}\\b/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\b\\w{8,}\\b/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\S+/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\d.+C/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\w+:/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\w+(?=:)/g)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio5": {
+      "id": "ejercicio5",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s = \"z = (sin(x)+cos(2*y)-exp(3+x)+tan(x*y)+log(5*y))/(sin(2+x)+sin(3*y)-cos(2+x)+cos(y)+exp(5*x)+log(x+y))\";"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/(sin|cos)\\([\\w*+]+\\)/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/(exp|log)\\([\\w*+]+\\)/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\((\\w|\\d\\*\\w)\\)/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/(sin|cos)\\((\\w|\\d\\+\\w)\\)/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/(tan|log)\\([xy][+*][xy]\\)/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/(?:sin|cos|exp|log|tan)\\(\\w\\)/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/(?:sin|cos|exp|log|tan)\\([\\w+*]{2,}\\)/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/(\\w)\\*(\\w)/g, \"$2*$1\")"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/(\\w)\\+(\\w)/g, \"$2+$1\")"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/(\\w)([*+])(\\w)/g, \"$3$2$1\")"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio6": {
+      "id": "ejercicio6",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s = \"Como casi todo en Javascript, las expresiones regulares son objetos\";"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.search(/l[eo]s/)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.search(/o[a-z]o/)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "/r[aio]s/.test(s)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "/j[a-z]t/.test(s)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.split(/[aeiou]/)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.split(/[ae]s/)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio7": {
+      "id": "ejercicio7",
+      "variantes_guardadas": [
+        "2"
+      ],
+      "enunciados": {
+        "2": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s = \"La vida es muy simple pero insistimos en hacerla complicada\";"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\b[^dt\\s]+\\b/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "er = /\\b[^ep\\s]+\\b/g;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "er.exec(s)",
+              "er.exec(s)",
+              "er.exec(s)",
+              "er.exec(s)",
+              "er.exec(s)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "er.lastIndex = 0;\n[...s.matchAll(er)]"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/\\b[a-z]*(?:ca|la|da)[a-z]*\\b/gi)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "er = /\\b[a-z]*(?:ic|id|im)[a-z]*\\b/gi;"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "er.exec(s)",
+              "er.exec(s)",
+              "er.exec(s)",
+              "er.exec(s)",
+              "er.exec(s)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "er.lastIndex = 0;\n[...s.matchAll(er)]"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio8": {
+      "id": "ejercicio8",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s = \"El que es bueno para poner excusas rara vez es bueno para cualquier otra cosa\";"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/([or]) /g, \"$1\\n\")"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/\\b[a-z]*er\\b/gi, \"<u>$&</u>\")"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/[aeiou]/g, \"<b>$&</b>\")"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/\\b[a-z]{1,4}\\b/gi, \"<s>$&</s>\")"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/\\b[a-z]*(?:er|es)[a-z]*\\b/gi, \"<mark>$&</mark>\")"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/\\b[a-z]/gi, \"<sup>$&</sup>\")"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio9": {
+      "id": "ejercicio9",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s = \"Aferrarse a la ira es como beber veneno y esperar que la otra persona muera\";"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/\\b\\w/g, match=>match.toUpperCase())"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/ira|beber|persona/g, match=>match.toUpperCase())"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/\\b(\\w)(\\w{2,})\\b/g, (undefined,p1,p2)=>p1.toUpperCase()+p2)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/\\b(\\w)(\\w*)(\\w)\\b/g, (match,p1,p2,p3)=>p1.toUpperCase()+p2+p3.toUpperCase())"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/\\b(\\w)(\\w*)(\\w)\\b/g, (match,p1,p2,p3)=>p3+p2+p1)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio10": {
+      "id": "ejercicio10",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s = `Corriente 1: 45.65 kg/h, 34.5 °C, 1.2 atm\nCorriente 2: 52.23 kg/h, 23.5 °C, 1.5 atm\nCorriente 3: 97.88 kg/h, 78.2 °C, 2.7 atm`;\ns"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/(\\d+\\.\\d+)\\skg\\/h/g,\n        (match,p1)=>`${(p1*35.724).toFixed(2)} oz/h`)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/(\\d+\\.\\d+)\\s(kg\\/h|°C)/g,\n        (match,p1,p2)=>p2===\"kg/h\"?`${(p1*35.724).toFixed(2)} oz/h`\n        :`${(p1*1+273.15).toFixed(2)} K`)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.replace(/(\\d+\\.\\d+)\\s(kg\\/h|°C|atm)/g,\n        (match,p1,p2)=>p2===\"kg/h\"?`${(p1*35.724).toFixed(2)} oz/h`\n        :p2===\"°C\"?`${(p1*1+273.15).toFixed(2)} K`\n        :`${(p1*1.01325).toFixed(3)} bar`)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio11": {
+      "id": "ejercicio11",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s = `Si tu hermano te ofende\nrecuerda no tanto su mala acción\nsino, más que nunca,\nque es tu hermano`;\ns"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/^.*?n/gm)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/e.*?o/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/(?<=e).*?(?=o)/g)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.match(/e.*?e/gs)"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

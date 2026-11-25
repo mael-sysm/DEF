@@ -1,0 +1,494 @@
+{
+  "materia": "progoo",
+  "capitulo": 11,
+  "resumen": {
+    "ids_ejercicios": [
+      "ejercicio1",
+      "ejercicio2",
+      "ejercicio3",
+      "ejercicio4",
+      "ejercicio5",
+      "ejercicio6",
+      "ejercicio7",
+      "ejercicio8",
+      "ejercicio9",
+      "ejercicio10"
+    ],
+    "variantes_por_ejercicio": {
+      "ejercicio1": [
+        "1"
+      ],
+      "ejercicio2": [
+        "0"
+      ],
+      "ejercicio3": [
+        "0"
+      ],
+      "ejercicio4": [
+        "0"
+      ],
+      "ejercicio5": [
+        "0"
+      ],
+      "ejercicio6": [
+        "0"
+      ],
+      "ejercicio7": [
+        "0"
+      ],
+      "ejercicio8": [
+        "0"
+      ],
+      "ejercicio9": [
+        "0"
+      ],
+      "ejercicio10": [
+        "0"
+      ]
+    }
+  },
+  "ejercicios": {
+    "ejercicio1": {
+      "id": "ejercicio1",
+      "variantes_guardadas": [
+        "1"
+      ],
+      "enunciados": {
+        "1": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "\"los \\\"métodos dinámicos\\\" se llaman desde los \\\"objetos de la clase\\\"\""
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "'los \\'métodos dinámicos\\' se llaman desde los \\'objetos de la clase\\''"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "'los \\'métodos dinámicos\\' se llaman desde los \"objetos de la clase\"'"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "\"los \\\"métodos dinámicos\\\" se llaman desde los 'objetos de la clase'\""
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "`los 'métodos dinámicos' se llaman desde los \"objetos de la clase\"`"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio2": {
+      "id": "ejercicio2",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "print(\"\\x21\\x23\\x24\\x25\\xA5\\x40\\xA1\\xA2\\xA3\");"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "print(\"\\u038F\\u0393\\u0394\\u0398\\u039B\\u03A3\\u03A6\\u03A8\");"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "print(\"\\u{168B6}\\u{168B8}\\u{168BA}\\u{168BC}\\u{168BE}\\u{168C1}\\u{168C9}\\u{168D8}\");"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "print(\"\\u{1FAE8}\\u{1FAE9}\\u{1FAEA}\\u{1FACD}\\u{1FA91}\\u{1F603}\\u{1f607}\\u{1F60F}\");"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio3": {
+      "id": "ejercicio3",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "c = \"!#$%¥@¡¢£\".charCodeAt(3); print(c, c.toString(16))",
+              "c = \"!#$%¥@¡¢£\".charCodeAt(6); print(c, c.toString(16))",
+              "c = \"!#$%¥@¡¢£\".charCodeAt(8); print(c, c.toString(16))"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "c = \"ΏΓΔΘΛΣΦΨ\".charCodeAt(0); print(c, c.toString(16))",
+              "c = \"ΏΓΔΘΛΣΦΨ\".charCodeAt(2); print(c, c.toString(16))",
+              "c = \"ΏΓΔΘΛΣΦΨ\".charCodeAt(5); print(c, c.toString(16))"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s = \"𖢶𖢸𖢺𖢼𖢾𖣁𖣉𖣘\";\nArray.from(s).forEach(e => (c = e.codePointAt(0), print(c, c.toString(16))));"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s = \"🫨🫩🫪🫍🪑😃😇😏\";\nfor (let e of Array.from(s)) {c = e.codePointAt(0); print(c, c.toString(16));};"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio4": {
+      "id": "ejercicio4",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "print(\n  \"MATERIA\\tNOTA\\n\" +\n  \"SIS101\\t90\\n\" +\n  \"FIS102\\t75\\n\" +\n  \"MAT101\\t80\"\n);"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "print(\n  \"ID\\tArtículo\\tPrecio\\n\" +\n  \"065\\tManzana\\t\\t3.5\\n\" +\n  \"078\\tNaranja\\t\\t2.5\\n\" +\n  \"093\\tPera\\t\\t4.0\"\n);"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "print(\n  \"Artículo\\tPr. Unitario\\tCantidad\\tPr. Total\\n\" +\n  \"Manzana\\t\\t3.0\\t\\t12\\t\\t36\\n\" +\n  \"Naranja\\t\\t2.5\\t\\t4\\t\\t10\\n\" +\n  \"Pera\\t\\t4.0\\t\\t10\\t\\t40\"\n);"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "print(\n  \"Ubicación\\tTítulo\\t\\t\\t\\t\\tAutor\\t\\t\\tEditorial\\n\" +\n  \"ISB34\\t\\tProgramación Estructurada\\t\\tPerez Jaime\\t\\tMc Graw Hill\\n\" +\n  \"ISA51\\t\\tProgramación Orientada a Objetos\\tJames Robert\\t\\tLevenspiel\\n\" +\n  \"ISF21\\t\\tProgramación Funcional\\t\\t\\tRamallo Humberto\\tOlimpia\"\n);"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio5": {
+      "id": "ejercicio5",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s1 = \"Los valores primitivos en Javascript pueden acceder a los métodos y propiedades del constructor respectivo\";"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s1.substr(4, 7)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s1.substring(12, 22)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s1.slice(26, 36)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s1.indexOf(\"en\")"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s1.lastIndexOf(\"to\")"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s1.at(26)",
+              "s1.charAt(26)",
+              "s1[26]"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s1.charCodeAt(0)",
+              "s1.codePointAt(0)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "String.fromCharCode(109)",
+              "String.fromCodePoint(109)"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio6": {
+      "id": "ejercicio6",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s1 = \"Todos los constructores y funciones en Javascript cuentan con la propiedad Prototype\";\ns1"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s2 = s1.substring(0, s1.indexOf(\" \")).toUpperCase();\ns2"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s2b = s1.slice(0, s1.search(\" \")).toLocaleUpperCase();\ns2b"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s3 = s1.substring(s1.lastIndexOf(\" \")+1).toLowerCase();\ns3"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s3b = s1.slice(s1.lastIndexOf(\" \")+1).toLocaleLowerCase();\ns3b"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s1.slice(-3)",
+              "s1.substr(-3)",
+              "s1.substring(s1.length-3)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s4 = s1.replace(\"funciones\", \"métodos\");\ns4"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s2.concat(\"-\", s3)",
+              "s2+\"-\"+s3",
+              "`${s2}-${s3}`"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "v1 = s1.split(\" \");\nv1",
+              "v1.join(\"-\")"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio7": {
+      "id": "ejercicio7",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s = \"Locura es hacer lo mismo una y otra vez esperando obtener resultados diferentes\";"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.startsWith(\"locura\")",
+              "s.endsWith(\"diferentes\")"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.padStart(85, \"-\")"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.padEnd(90, \"_\")"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "s.padStart(90, \"¡\").padEnd(100, \"!\")"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "\"        Hagas lo que hagas, hazlo bien.\".trimLeft()",
+              "\"        Hagas lo que hagas, hazlo bien.\".trimStart()"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "\"Vivir bien es mejor que vivir.       \".trimEnd()",
+              "\"Vivir bien es mejor que vivir.       \".trimRight()"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "\"   Donde hay amor, hay vida.   \".trim()"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "\"vida\".repeat(7)"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "String.raw`El valor\\n de\\b\\t una idea\\n radica\\v en su uso.`"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "\"Programación\".localeCompare(\"programación\")"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio8": {
+      "id": "ejercicio8",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Object.defineProperty(String.prototype, \"procesarRuta\", {\n\n  get() {\n    const ruta = this.valueOf();\n    // Se reemplazan los quebrados invertidos (\\) por quebrados (/)\n    const normalizada = ruta.replaceAll(\"\\\\\", \"/\");\n    // Se extrae el nombre completo (el texto después del último quebrado)\n    const posQuebrado = normalizada.lastIndexOf(\"/\");\n    const nombreCompleto = normalizada.slice(posQuebrado+1);\n    // Se ubica el último punto del nombre completo\n    const posPunto = nombreCompleto.lastIndexOf(\".\");\n    let nombre, extensión;\n    // Si el nombreCompleto tiene extensión (un punto y uno o más caracteres)\n    if (posPunto!==-1 && posPunto>0) {\n      // Se extraen el nombre y la extensión\n      nombre = nombreCompleto.slice(0, posPunto);\n      extensión = nombreCompleto.slice(posPunto+1);\n    } else {\n      // El nombre es el nombre completo y no tiene extensión\n      nombre = nombreCompleto;\n      extensión = \"Sin extensión\";\n    }\n    // Se devuelve el objeto literal\n    return {\n      rutaNormalizada: normalizada,\n      archivo: nombre,\n      extensión: extensión\n    };\n  },\n\n  configurable: true\n\n});"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "String.raw`C:\\archivos\\documentos\\reporte_anual_2026.pdf`.procesarRuta",
+              "String.raw`C:\\informes\\graficas\\proyeccion_2026.jpg`.procesarRuta",
+              "String.raw`C:\\documentos\\personal\\apuntes.`.procesarRuta",
+              "String.raw`D:\\respaldo\\clases\\fis102_1`.procesarRuta"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio9": {
+      "id": "ejercicio9",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "Object.defineProperty(Array.prototype, \"generarRecibo\", {\n\n  get() {\n    // Array con los items a incluir en el recibo\n    const items = this;\n    // Fila con 32 guiones para separar el cuerpo de la tabla\n    const separador = \"-\".repeat(32);\n    // Encabezado de la tabla y fila de separación\n    let recibo = \"ARTÍCULO\".padEnd(20) + \"PRECIO\\n\" + separador + \"\\n\";\n    // Ciclo para iterar con cada uno de los items del array\n    items.forEach(item => {\n      // Fila con el nombre y el precio del item\n      recibo += item.nombre.padEnd(20, \".\") + (\"$\" + item.precio.toFixed(2)).padStart(8, \".\") + \"\\n\";\n    });\n    // Separador al final de la tabla\n    recibo += separador;\n    // Se devuelve el recibo generado\n    return recibo;\n  },\n\n  configurable: true\n\n});"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "productos = [\n  { nombre: \"Cuaderno espiral\", precio: 15.5 },\n  { nombre: \"Bolígrafo azul\", precio: 1.2 },\n  { nombre: \"Mochila escolar\", precio: 120.0 }\n];",
+              "print(productos.generarRecibo);"
+            ]
+          }
+        ]
+      }
+    },
+    "ejercicio10": {
+      "id": "ejercicio10",
+      "variantes_guardadas": [
+        "0"
+      ],
+      "enunciados": {
+        "0": [
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "String.prototype.cifrarTexto = function(desplazamiento) {\n  // Texto desde el cual se llama al método\n  const texto = this.valueOf();\n  // Se inicializa la variable que guarda el texto cifrado\n  let resultado = \"\";\n  // Se cifran, uno a uno, los caracteres \"c\" del texto\n  for (const c of Array.from(texto)) {\n    // Si es una de las secuencias de escape elegidas no se cifra\n    if (c === \"\\n\" || c === \"\\r\" || c === \"\\t\")\n      resultado += c;\n    else\n      // Se codifica el carácter \"c\"\n      resultado += String.fromCodePoint(c.codePointAt(0) + desplazamiento);\n  }\n  // Se devuelve el texto cifrado\n  return resultado;\n};"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "texto = \"Notas:\\n\\tAlumno:\\t\\tJuan Pérez\\n\\t1er Parcial:\\t90\\n\\t2do Parcial:\\t95\";\nprint(texto);",
+              "cifrado1 = texto.cifrarTexto(3);\nprint(cifrado1);",
+              "cifrado2 = texto.cifrarTexto(5);\nprint(cifrado2);"
+            ]
+          },
+          {
+            "tipo": "codigo",
+            "instrucciones": [
+              "String.prototype.descifrarTexto = function(desplazamiento) {\n  // Texto desde el cual se llama al método\n  const cifrado = this.valueOf();\n  // Se llama al método de cifrado para descifrar el texto\n  return cifrado.cifrarTexto(-desplazamiento);\n};",
+              "print(cifrado1.descifrarTexto(3));",
+              "print(cifrado2.descifrarTexto(5));"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
